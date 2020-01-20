@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<messages>
+
+	<!--Shutdown Message 6 hours-->
+	<message>
+        <deadline>360</deadline>
+        <shutdown>1</shutdown>
+        <text>#name will shutdown in #tmin minutes.</text>
+    </message>
+
+	<message>
+        <delay>10</delay>
+        <repeat>50</repeat>
+        <onconnect>1</onconnect>
+        <text>Join our Discord!  https://discord.me/die-autobahn</text>
+    </message>
+	
+	<message>
+        <delay>5</delay>
+        <repeat>30</repeat>
+        <onconnect>1</onconnect>
+        <text>Press PauseBreak button for server info,P for group function.</text>
+    </message>
+</messages>
