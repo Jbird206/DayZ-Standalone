@@ -1,3 +1,286 @@
+//<START>..................................<START>	
+//-------[ CAR SPAWNER FUNCTION -NZJOCKO- ]-------
+void spawncar( string type, vector position, bool spawnfood, bool spawndrink, bool spawngun, bool spawnmed )
+{
+	
+//can edit arrays BUT if adding to gun array may need xtra code for mags etc
+		ref TStringArray foodArray = {"BoxCerealCrunchin","PowderedMilk","Rice","BakedBeansCan_Opened","PeachesCan_Opened","SpaghettiCan_Opened","SardinesCan_Opened","TunaCan_Opened","Apple","Tomato","GreenBellPepper","Zucchini","SlicedPumpkin","Potato","Plum","Pear"};
+		ref TStringArray drinkArray = {"SodaCan_Cola","SodaCan_Pipsi","SodaCan_Spite","SodaCan_Kvass","WaterBottle"};
+	    ref TStringArray gunArray = {"SKS","Mosin9130","CZ527","FNX45","MP5K","Mp133Shotgun","CZ61","UMP45","MakarovIJ70"};
+		ref TStringArray medArray = {"SalineBagIV","Epinephrine","BandageDressing"};
+        bool allowspawn = true;
+// Need to do a better a object check here maybe only check for cars?
+		ref array<Object> nearest_objects = new array<Object>;
+		ref array<CargoBase> cargo_objects = new array<CargoBase>;
+		GetGame().GetObjectsAtPosition3D( position, 15, nearest_objects, cargo_objects );
+
+		//new check if car is spawned
+		for (int i = 0; i < nearest_objects.Count(); ++i) {
+			if (nearest_objects[i].IsKindOf("CarScript")) {
+				allowspawn = false;
+			}
+		}	
+		
+		//if (nearest_objects.Count() < 1) {
+		if (allowspawn) {	
+			
+		EntityAI myVeh = EntityAI.Cast(GetGame().CreateObject(type, position, false, true));
+		if (type == "OffroadHatchback" || "OffroadHatchback_Blue" || "OffroadHatchback_White")
+		{
+        myVeh.GetInventory().CreateAttachment("HatchbackWheel");
+        myVeh.GetInventory().CreateAttachment("HatchbackWheel");
+        myVeh.GetInventory().CreateAttachment("HatchbackWheel");
+        myVeh.GetInventory().CreateAttachment("HatchbackWheel");
+        myVeh.GetInventory().CreateAttachment("HatchbackWheel");
+		if (type == "OffroadHatchback")
+		{
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_Driver");
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_CoDriver");
+        myVeh.GetInventory().CreateAttachment("HatchbackHood");
+		myVeh.GetInventory().CreateAttachment("HatchbackTrunk");
+		}
+		if (type == "OffroadHatchback_Blue")
+		{
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_Driver_Blue");
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_CoDriver_Blue");
+        myVeh.GetInventory().CreateAttachment("HatchbackHood_Blue");
+		myVeh.GetInventory().CreateAttachment("HatchbackTrunk_Blue");
+		}
+		
+		if (type == "OffroadHatchback_White")
+		{
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_Driver_White");
+        myVeh.GetInventory().CreateAttachment("HatchbackDoors_CoDriver_White");
+        myVeh.GetInventory().CreateAttachment("HatchbackHood_White");
+		myVeh.GetInventory().CreateAttachment("HatchbackTrunk_White");
+		}
+		
+		}
+		
+		if (type == "CivilianSedan" || "CivilianSedan_Wine" || "CivilianSedan_Black")	
+		{
+		myVeh.GetInventory().CreateAttachment("CivSedanWheel");
+        myVeh.GetInventory().CreateAttachment("CivSedanWheel");
+        myVeh.GetInventory().CreateAttachment("CivSedanWheel");
+        myVeh.GetInventory().CreateAttachment("CivSedanWheel");
+		if (type == "CivilianSedan")
+		{
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_Driver");
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_CoDriver");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackLeft");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackRight");
+        myVeh.GetInventory().CreateAttachment("CivSedanHood");
+		myVeh.GetInventory().CreateAttachment("CivSedanTrunk");
+		}
+		if (type == "CivilianSedan_Wine")
+		{
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_Driver_Wine");
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_CoDriver_Wine");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackLeft_Wine");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackRight_Wine");
+        myVeh.GetInventory().CreateAttachment("CivSedanHood_Wine");
+		myVeh.GetInventory().CreateAttachment("CivSedanTrunk_Wine");
+		}
+		
+		if (type == "CivilianSedan_Black")
+		{
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_Driver_Black");
+        myVeh.GetInventory().CreateAttachment("CivSedanDoors_CoDriver_Black");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackLeft_Black");
+		myVeh.GetInventory().CreateAttachment("CivSedanDoors_BackRight_Black");		
+        myVeh.GetInventory().CreateAttachment("CivSedanHood_Black");
+		myVeh.GetInventory().CreateAttachment("CivSedanTrunk_Black");
+		}
+			
+		}
+		
+		
+		if (type == "Sedan_02" || "Sedan_02_Red" || "Sedan_02_Grey")	
+		{
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Wheel");
+		if (type == "Sedan_02")
+		{
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_1");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_1");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_2");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_2");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Hood");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Trunk");
+		}
+		if (type == "Sedan_02_Red")
+		{
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_1_Red");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_1_Red");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_2_Red");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_2_Red");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Hood_Red");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Trunk_Red");
+		}
+		
+		if (type == "Sedan_02_Grey")
+		{
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_1_Grey");
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_1_Grey");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_1_2_Grey");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Door_2_2_Grey");		
+        myVeh.GetInventory().CreateAttachment("Sedan_02_Hood_Grey");
+		myVeh.GetInventory().CreateAttachment("Sedan_02_Trunk_Grey");
+		}
+			
+		}
+
+		if (type == "Hatchback_02" || "Hatchback_02_Black" || "Hatchback_02_Blue")	
+		{
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Wheel");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Wheel");
+		if (type == "Hatchback_02")
+		{
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_1");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_1");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_2");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_2");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Hood");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Trunk");
+		}
+		if (type == "Hatchback_02_Black")
+		{
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_1_Black");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_1_Black");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_2_Black");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_2_Black");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Hood_Black");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Trunk_Black");
+		}
+		
+		if (type == "Hatchback_02_Blue")
+		{
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_1_Blue");
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_1_Blue");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_1_2_Blue");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Door_2_2_Blue");		
+        myVeh.GetInventory().CreateAttachment("Hatchback_02_Hood_Blue");
+		myVeh.GetInventory().CreateAttachment("Hatchback_02_Trunk_Blue");
+		}
+			
+		}		
+		
+		
+        myVeh.GetInventory().CreateAttachment("SparkPlug");
+        myVeh.GetInventory().CreateAttachment("EngineBelt");
+        myVeh.GetInventory().CreateAttachment("CarRadiator");
+        myVeh.GetInventory().CreateAttachment("CarBattery");
+        myVeh.GetInventory().CreateAttachment("HeadlightH7");	
+		myVeh.GetInventory().CreateAttachment("HeadlightH7");
+		
+		//Change to spawning in car inventory?
+		if (spawnfood)
+		{
+			myVeh.SpawnEntityOnGroundPos(foodArray.GetRandomElement(), position); 
+		}
+		if (spawndrink)
+		{
+			myVeh.SpawnEntityOnGroundPos(drinkArray.GetRandomElement(), position); 
+		}
+		if (spawnmed)
+		{
+			myVeh.SpawnEntityOnGroundPos(medArray.GetRandomElement(), position); 	
+		}
+		
+		
+		if (spawngun)
+		{
+		string selectedGun = gunArray.GetRandomElement(); //Random choice
+		//"SKS","Mosin9130","CZ527","FNX45","MP5K","Mp133Shotgun","CZ61","UMP45","MakarovIJ70"	
+		//string selectedGun = "Mosin9130"; //force choice for testing
+		EntityAI myGun = EntityAI.Cast(myVeh.SpawnEntityOnGroundPos(selectedGun, position)); 
+		
+		if ( selectedGun == "MakarovIJ70")
+		{
+		myGun.GetInventory().CreateAttachment("PistolSuppressor");
+		myVeh.SpawnEntityOnGroundPos("Mag_IJ70_8Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Mag_IJ70_8Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Ammo_380", position);
+		}
+		
+		if ( selectedGun == "UMP45")
+		{
+		myVeh.SpawnEntityOnGroundPos("Mag_UMP_25Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Ammo_45ACP", position);
+		}
+		
+		if ( selectedGun == "FNX45")
+		{
+		ItemBase fnxAtt = myGun.GetInventory().CreateAttachment("FNP45_MRDSOptic");
+		fnxAtt.GetInventory().CreateAttachment("Battery9V");
+		myVeh.SpawnEntityOnGroundPos("Mag_FNX45_15Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Ammo_45ACP", position);
+		}
+		
+		if ( selectedGun == "CZ527")
+		{
+		myGun.GetInventory().CreateAttachment("HuntingOptic");
+		myVeh.SpawnEntityOnGroundPos("Ammo_762x39", position);
+		}
+			
+		if ( selectedGun == "Mp133Shotgun")
+		{
+		myVeh.SpawnEntityOnGroundPos("Ammo_12gaSlug", position);
+		myVeh.SpawnEntityOnGroundPos("Ammo_12gaSlug", position);
+		}
+		
+		if ( selectedGun == "MP5K")
+		{
+		myGun.GetInventory().CreateAttachment("MP5_RailHndgrd");
+		myGun.GetInventory().CreateAttachment("MP5_Compensator");
+		myGun.GetInventory().CreateAttachment("MP5k_StockBttstck");
+		myVeh.SpawnEntityOnGroundPos("Mag_MP5_30Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Mag_MP5_30Rnd", position);
+		}
+		
+		if ( selectedGun == "SKS")
+		{
+		myGun.GetInventory().CreateAttachment("PUScopeOptic");
+		myVeh.SpawnEntityOnGroundPos("Ammo_762x39", position);
+		}
+		
+		if ( selectedGun == "Mosin9130")
+		{
+		myGun.GetInventory().CreateAttachment("PUScopeOptic");
+		myVeh.SpawnEntityOnGroundPos("Ammo_762x54", position);
+		}
+
+		
+		if ( selectedGun == "CZ61")
+		{
+		myVeh.SpawnEntityOnGroundPos("Mag_CZ61_20Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Mag_CZ61_20Rnd", position);
+		myVeh.SpawnEntityOnGroundPos("Ammo_380", position);
+		}	
+			
+			
+		}
+		
+		
+		auto carfluids = Car.Cast( myVeh );
+		carfluids.Fill( CarFluid.FUEL, 1000 );
+		carfluids.Fill( CarFluid.OIL, 1000 );
+		carfluids.Fill( CarFluid.BRAKE, 1000 );
+		carfluids.Fill( CarFluid.COOLANT, 1000 );
+		
+			
+		}
+
+	
+
+}
+//<END>..................................<END>
+
+
 //Spawn helper function
 void SpawnObject( string type, vector position, vector orientation )
 {
@@ -12,17 +295,570 @@ void SpawnObject( string type, vector position, vector orientation )
 
 void main()
 {
+
 //Your custom spawned objects
-//Balota
+//prison bridge
+SpawnObject( "bldr_Platform1_Block", "2712.823730 3.260230 1982.408691", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.800049 3.270670 1992.386108", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.802246 2.920380 2001.972412", "0.000000 -4.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.840088 3.260231 1982.418213", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.777832 3.260230 1992.395508", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.766602 2.912740 2002.140137", "0.000000 -4.500000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.885986 3.260231 1982.409180", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.780029 3.260230 1992.400024", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.807129 2.899940 2002.024658", "0.000000 -4.500000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.786865 3.273120 1972.450928", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.830078 3.273780 1972.479980", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.870117 3.235950 1972.469971", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.800049 3.280030 1962.510010", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.860107 3.261988 1962.498291", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.869385 3.253740 1962.461792", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2682.939697 3.260230 1992.420044", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2682.929688 3.260230 1982.430542", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2683.224854 2.462310 2002.119995", "0.000000 -4.500000 -4.999999" );
+SpawnObject( "bldr_Platform1_Block", "2722.833496 3.260230 1982.439941", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2722.794678 3.268150 1972.480591", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2722.780029 3.285467 1962.519775", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2682.918213 3.212203 1972.458130", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2683.630859 3.239650 1962.448853", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2722.770020 3.283820 1952.550049", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.771729 3.296150 1952.520630", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.820068 3.249630 1952.501831", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.853027 3.274140 1952.500366", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2683.590088 3.283180 1952.520386", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform2_Block", "2683.620117 3.284330 1942.580444", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform2_Block", "2692.840088 3.287070 1942.468262", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.889893 3.323189 1942.469971", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.869141 3.325982 1942.459595", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2722.760010 3.281300 1942.507935", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.260010 -1.330000 1928.250000", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.260010 -1.330000 1903.309814", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.270020 -1.330000 1878.329956", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Cementworks_Conveyorhall", "2655.919922 10.733400 1979.181885", "-86.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Guardhouse2", "2706.340088 7.979080 1993.681885", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2727.666260 11.478702 1946.059204", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2727.716309 11.465160 1963.209961", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2727.780029 11.465200 1970.689941", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2718.695313 11.453700 1937.904907", "10.000004 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2687.679932 11.438447 1937.804565", "10.000004 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2679.000000 11.357903 1946.181519", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_Prison_Wall_Small", "2679.076660 11.340500 1956.369995", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_rail_tracke_turnoutr", "2573.777100 6.114159 1994.079956", "99.000008 0.000000 0.000000" );
+SpawnObject( "bldr_rail_tracke_r25_10", "2595.479980 5.795209 1983.930054", "122.999992 0.000000 0.000000" );
+SpawnObject( "bldr_rail_tracke_r25_10", "2615.166260 5.795209 1968.810059", "131.999985 0.000000 0.000000" );
+SpawnObject( "bldr_rail_tracke_l30_20", "2630.540039 5.791750 1952.558350", "-38.000004 0.000000 0.000000" );
+SpawnObject( "Land_Mil_GuardTower", "2718.929932 13.259365 1945.582764", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_GuardTower", "2687.919922 12.970452 1945.914795", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_BusStation_building", "2694.669678 7.088780 1946.589966", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2627.175049 3.237990 1957.520020", "-44.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2620.563965 3.237961 1963.989990", "-46.999977 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2632.727783 3.226830 1950.530029", "-33.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2632.727783 3.226830 1950.530029", "-33.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2613.260010 3.224290 1970.532593", "40.999996 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2606.000244 2.916800 1976.725464", "40.000000 0.000000 -4.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2676.300049 2.696310 1855.000244", "-20.000006 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.280029 -1.330000 1853.341797", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.290039 -1.330000 1828.334106", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2686.209961 2.703854 1816.604370", "-9.000004 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.290039 -1.337557 1803.338989", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.300049 -1.347000 1778.437012", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2690.703369 -1.831480 1773.796631", "0.000000 11.000000 13.000002" );
+SpawnObject( "bldr_rail_bridge_40", "2691.889893 -2.664289 1734.529663", "0.000000 -10.000000 -12.999999" );
+SpawnObject( "bldr_bridge_stone_25", "2703.312012 -1.362015 1753.487915", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.320068 -1.360060 1728.529297", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Train_742_Blue", "2691.937256 1.363871 1757.819702", "-179.999985 -11.000000 -12.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2692.750488 3.084080 1771.371460", "-12.999999 14.000000 18.000010" );
+SpawnObject( "Land_Train_Wagon_Box", "2692.340088 5.415000 1782.800049", "16.000002 9.000000 9.000003" );
+SpawnObject( "Land_Train_Wagon_Box", "2690.229980 7.657508 1791.040039", "0.000000 10.000002 -1.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium2", "2686.979492 6.951770 1794.889404", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2689.751465 7.264223 1796.170288", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium1", "2690.674561 6.418674 1792.109375", "-75.000000 11.000000 -15.000015" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium1", "2692.122803 6.248490 1791.959351", "95.000000 -7.000001 17.000025" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium1", "2694.240723 5.619480 1791.659546", "-1.000000 25.000002 19.999994" );
+SpawnObject( "Land_Train_Wagon_Box", "2682.539551 8.365619 1837.114868", "-16.000004 0.000000 0.000000" );
+SpawnObject( "bldr_box_c_multi", "2684.187988 6.731608 1837.313843", "72.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.329346 -1.337195 1703.611694", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.300049 -1.348441 1678.633789", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.289063 -1.345594 1653.871460", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.290039 -1.361449 1628.900635", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.290039 -1.389390 1603.914063", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.300049 -1.389810 1578.942261", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.300049 -1.361878 1553.976440", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.320068 -1.377300 1529.117676", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.300049 -1.369247 1504.148193", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.260986 -1.384160 1479.180054", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2673.071777 4.459590 1385.342896", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Ramp", "2656.969727 7.602989 1380.660400", "178.999954 0.000000 -14.000000" );
+SpawnObject( "bldr_Platform1_Block", "2672.322998 4.448822 1375.390015", "3.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2682.250000 4.477911 1374.853027", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2682.760010 4.480000 1384.825806", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.179932 4.485538 1374.290039", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2692.689941 4.494731 1384.232788", "3.000020 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.149902 4.475020 1373.789917", "3.000012 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2702.633301 4.510170 1383.689819", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2712.530762 4.515410 1383.160034", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2711.983398 4.485390 1373.182129", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.266846 -1.394950 1454.550049", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.255127 -1.409760 1429.666992", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "2703.270020 -1.417941 1410.969971", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2708.400879 4.528140 1393.450195", "2.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2698.439941 4.509017 1393.865112", "2.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Ramp", "2701.159668 6.774180 1411.796143", "-90.000000 0.000000 -10.000004" );
+SpawnObject( "bldr_Platform1_Ramp", "2705.820068 6.775255 1411.770020", "-89.000000 0.000000 -10.000004" );
+SpawnObject( "bldr_rail_bridge_40", "2645.939697 2.665780 1927.467896", "-29.000008 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2662.709961 2.698325 1891.390015", "-21.000010 0.000000 0.000000" );
+SpawnObject( "Land_Airfield_ServiceHangar_R", "2628.038086 1.722998 1478.089966", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Airfield_ServiceHangar_L", "2628.029785 1.690750 1428.109985", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Train_742_Red", "2678.600098 8.888300 1849.215698", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2691.461670 1.350720 1690.430054", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2692.439209 5.609888 1713.349976", "0.000000 -10.000002 -6.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2689.319580 5.043850 1711.912476", "-179.999985 5.000000 20.000006" );
+SpawnObject( "bldr_rail_bridge_40", "2691.498535 1.342950 1650.459961", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2691.470215 1.345799 1610.450073", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2691.476563 1.312180 1570.510010", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_15_end", "2653.343506 -4.712580 1447.189941", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_40", "2684.952637 -5.058339 1525.608643", "10.000002 16.000002 -18.000010" );
+SpawnObject( "bldr_rail_bridge_40", "2669.137939 -6.867790 1489.741455", "30.000004 -12.000000 21.999998" );
+SpawnObject( "bldr_rail_bridge_15_end", "2653.345947 -4.717490 1458.379761", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_15_end", "2653.335449 -4.732200 1434.949951", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_bridge_15_end", "2653.367676 -4.751830 1423.568848", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2652.219971 -1.767690 1415.604614", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Block", "2652.229980 -2.820760 1406.515747", "0.000000 13.000002 0.000000" );
+SpawnObject( "bldr_rail_linebreak_concrete", "2653.409912 2.301160 1415.489014", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2653.315430 3.429230 1441.293457", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_obstacle_ramp", "2631.584473 3.326264 1501.390869", "179.999985 59.000004 179.999985" );
+SpawnObject( "bldr_misc_obstacle_ramp", "2607.922852 3.296897 1428.945313", "90.000000 58.000011 -179.999985" );
+SpawnObject( "bldr_misc_obstacle_ramp", "2613.136719 0.859152 1403.035278", "-179.999985 0.000000 0.000000" );
+SpawnObject( "bldr_misc_obstacle_ramp", "2607.981934 3.255833 1487.881958", "90.000000 -63.000011 0.000000" );
+SpawnObject( "bldr_ship_medium_front", "2849.159912 3.786206 1109.191650", "139.000061 -7.000001 0.000000" );
+SpawnObject( "bldr_ship_medium_back", "2888.143799 7.378095 1051.033203", "155.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2689.489990 5.498692 1546.623047", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2693.535156 6.027518 1546.997925", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Monument_Wall", "2697.229980 7.711825 1993.790527", "-179.999985 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2694.090576 7.454870 1993.810059", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2691.529785 7.454870 1993.795898", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2688.968262 7.454870 1993.822754", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2686.383545 7.454865 1993.805176", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2684.929688 7.504866 1995.250000", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2683.430176 7.504866 1997.043457", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2684.945068 7.563948 1996.689941", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2684.929932 7.613948 1993.810059", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2684.919922 7.563948 1997.040039", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2680.876709 7.504870 1997.063354", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2679.527100 7.504866 1997.069946", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2678.129639 7.563948 1997.052002", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2678.128418 7.304860 1995.625977", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2678.139893 7.304865 1993.057983", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2678.110107 7.304865 1990.482910", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2678.112549 7.304865 1987.954346", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fen2_6", "2677.965576 7.518342 1983.680054", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2713.909912 7.515310 1996.948120", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2716.461670 7.515310 1996.949951", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2717.622559 7.524390 1996.647583", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2717.580078 7.465305 1995.213989", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2717.600098 7.465706 1992.683472", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2717.576416 7.465305 1990.140015", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2717.592773 7.465305 1988.657104", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_pole", "2717.580078 7.513950 1987.199829", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2719.050049 7.505678 1987.239380", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2721.584717 7.504866 1987.206299", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2724.120117 7.504866 1987.205078", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fenr_3", "2726.519775 7.504866 1987.192383", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fen2_6", "2727.879883 7.767530 1984.150879", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_fen2_6", "2727.789795 7.767530 1980.077393", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rail_crossing_barrier", "2698.760010 9.732681 1986.366455", "-179.999985 0.000000 0.000000" );
+SpawnObject( "bldr_BusStop_Village", "2660.172119 7.197911 2010.435669", "-175.999969 0.000000 0.000000" );
+SpawnObject( "bldr_BusStop_Village_Sign", "2657.681885 7.025216 2010.745605", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_BusStop_City_Sign", "2662.602295 6.889129 2010.254272", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Lamp_City1", "2650.708008 10.255400 2010.740234", "98.999985 -38.999992 22.000021" );
+SpawnObject( "Land_Wreck_Ikarus", "2644.600098 7.395010 2013.900757", "-68.000000 0.000000 0.000000" );
+SpawnObject( "bldr_sign_rail_crossing25", "2737.794678 6.780422 1987.222290", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_sign_rail_crossing25", "2737.752441 6.780422 1979.457153", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_sign_rail_crossing25", "2556.925781 6.780422 1994.163940", "90.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_sign_rail_crossing25", "2557.649170 6.780422 2002.437988", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_range_single", "2728.469482 7.261670 1983.406982", "-90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_bmp2", "2712.166260 7.817610 1950.013428", "0.000000 0.000000 10.000003" );
+SpawnObject( "bldr_wreck_t72_chassis", "2675.916992 6.690366 2003.367676", "-50.000004 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_t72_turret", "2674.274658 7.660660 2003.220093", "-96.000023 -14.999999 0.000000" );
+SpawnObject( "bldr_wreck_ural", "2661.965820 7.191035 1991.908203", "-179.999985 0.000000 -0.000000" );
+SpawnObject( "Land_Train_742_Red", "2546.419922 8.036325 2012.236816", "90.000000 0.000000 -102.000000" );
+SpawnObject( "bldr_plnt_t_BetulaPendula_3fb", "2533.096680 16.027084 2017.466309", "0.000000 0.000000 17.000004" );
+SpawnObject( "bldr_plnt_t_BetulaPendula_3s", "2479.553223 15.588962 2011.228516", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2529.209961 10.862270 2017.529907", "90.000000 59.999996 0.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2554.374512 8.506650 2016.673096", "-128.999969 20.000000 115.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2534.577148 7.674497 2005.729980", "0.000000 -7.000000 0.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2513.849854 8.314050 2006.410034", "104.000000 0.000000 0.000000" );
+SpawnObject( "bldr_HouseB_Tenement_DayZ_airplane", "2534.622559 -18.650000 1986.398560", "176.999969 0.000000 21.000023" );
+SpawnObject( "bldr_Hotel_Damaged_Airplane_Wing", "2547.642090 7.491198 2002.708740", "-4.000000 -11.000002 0.000000" );
+SpawnObject( "bldr_Hotel_Damaged_Airplane_Back", "2518.764893 6.000000 2016.344727", "142.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2520.003174 6.388670 2014.839966", "132.999939 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2515.747314 5.918130 2018.186157", "120.999947 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2502.476563 6.741749 2032.790405", "138.999985 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2500.429932 6.561759 2035.867554", "139.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2533.479980 6.077028 1994.429810", "151.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2542.345703 5.977028 1980.510010", "153.999985 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2539.080078 5.993562 1985.318604", "145.000015 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2553.159912 6.027028 2003.274536", "-12.000008 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2556.370117 5.907968 2019.456055", "44.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2543.666992 6.226826 2012.758789", "96.000023 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2549.439209 6.369166 2012.739990", "96.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2550.520020 6.065180 2012.360596", "91.000015 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2534.458496 5.708690 2013.025879", "-1.000000 -6.000000 0.000000" );
+SpawnObject( "CraterLong", "2524.507080 5.653798 2017.927734", "87.000008 11.000000 0.000000" );
+SpawnObject( "CraterLong", "2507.157715 6.800964 2027.390991", "139.000000 0.000000 0.000000" );
+SpawnObject( "CraterLong", "2543.340576 5.577030 2011.218262", "-83.999992 0.000000 13.000002" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2535.419922 6.756520 2001.781616", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium2", "2524.070068 6.400730 2001.971191", "0.000000 18.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium1", "2516.806885 6.679410 2004.030884", "41.000008 15.000003 7.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium1", "2546.475830 6.779410 1999.930786", "2.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2553.072021 6.405979 2000.532715", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2528.430664 6.571201 2000.905762", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium2", "2522.900391 6.636065 2005.705811", "0.000000 -12.999999 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Medium2", "2520.597656 6.250904 2006.668091", "-57.999992 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "2531.851563 6.747797 2003.231201", "90.000000 0.000000 0.000000" );
+SpawnObject( "Wreck_UH1Y", "2537.207275 3.851010 1989.213745", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Lada_Green", "2543.965088 6.237370 2014.386597", "-179.999985 -35.999992 0.000000" );
+SpawnObject( "Land_Wreck_Volha_Grey", "2556.164795 6.113135 2021.800049", "-27.000010 25.999994 0.000000" );
+SpawnObject( "Land_Wreck_Uaz", "2686.552246 7.471796 1961.384277", "13.000002 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_decal_big", "2645.056396 6.130795 2014.635010", "-69.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_decal_small2", "2646.886963 6.091567 2014.250610", "108.999985 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_decal_small2", "2642.401123 6.083860 2015.973755", "-61.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_decal_small2", "2676.901367 5.922935 2005.305908", "-51.999996 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_V3S", "2581.086914 8.139707 2021.176514", "-87.000008 -3.000000 0.000000" );
+SpawnObject( "bldr_wreck_ural", "2491.820801 7.981027 2034.435547", "-58.999989 0.000000 -90.000000" );
+SpawnObject( "bldr_wreck_ural", "2694.905029 7.954140 1953.402100", "-14.000003 0.000000 0.000000" );
+SpawnObject( "Land_Pipe_Big_Ground1", "2624.919922 6.430040 1975.461914", "95.000023 0.000000 0.000000" );
+SpawnObject( "bldr_ship_medium_front", "2657.290039 12.102000 1739.098755", "-113.999977 0.000000 0.000000" );
+SpawnObject( "bldr_ship_medium_back", "2585.631104 7.486680 1706.540039", "-119.999954 1.000000 -22.999998" );
+SpawnObject( "bldr_HouseB_Tenement_DayZ_airplane", "2681.668701 -24.977800 1516.355835", "152.000015 -16.999985 39.999977" );
+SpawnObject( "bldr_Hotel_Damaged_Airplane_Wing", "2690.740234 3.670180 1514.702515", "31.000006 -27.999992 -30.000004" );
+SpawnObject( "bldr_Hotel_Damaged_Airplane_Back", "2718.121826 7.467743 1471.529907", "96.999977 -45.000031 179.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2717.322754 7.654369 1383.930298", "-87.000008 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2715.284180 7.566880 1387.800049", "3.000021 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2713.179932 7.567099 1391.549805", "-88.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2713.343018 7.579210 1396.300293", "-88.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2693.669922 7.547976 1394.596191", "-88.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2711.256836 7.529610 1398.109863", "2.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2695.616455 7.560087 1398.739990", "2.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2693.570068 7.560087 1391.142456", "-88.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2689.720947 7.533690 1389.220337", "4.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2681.761963 7.482250 1389.655273", "3.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2673.739990 7.497319 1390.070068", "3.000013 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2670.076416 7.509430 1390.272827", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2668.163574 7.509830 1388.578369", "-87.000008 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2668.050049 7.509830 1386.619263", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2667.366699 7.499892 1372.659668", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2667.510010 7.499892 1375.128296", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2671.479980 7.487781 1370.699951", "3.000015 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2679.522949 7.487781 1370.310059", "3.000026 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2687.520020 7.524497 1369.884766", "3.000016 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2695.511719 7.474897 1369.489990", "3.000010 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2703.539307 7.513979 1369.039307", "3.000015 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2711.517822 7.524349 1368.628784", "3.000006 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2714.709961 7.536860 1368.469971", "3.000025 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2716.875488 7.524750 1375.937500", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2716.600098 7.536460 1370.589966", "-87.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2709.550049 7.417499 1402.349976", "-89.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2697.430176 7.547976 1402.640015", "-89.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2664.250488 7.371480 1384.296387", "-1.000000 0.000000 -2.000006" );
+SpawnObject( "bldr_wall_cncsmall_8", "2656.226807 7.086070 1384.148560", "-1.000000 0.000000 -2.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2651.981934 6.950990 1384.082764", "-1.000000 0.000000 -2.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2663.909912 7.371260 1377.283936", "-1.000000 0.000000 -2.000000" );
+SpawnObject( "bldr_wall_cncsmall_8", "2655.924561 7.109927 1377.170044", "-1.000000 0.000000 -2.000000" );
+SpawnObject( "bldr_wall_cncsmall_4", "2651.091064 6.992190 1377.099976", "-1.000000 0.000000 -2.000000" );
+SpawnObject( "bldr_box_c_multi", "2655.430420 6.694114 1909.514893", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Train_Wagon_Box", "2694.409912 8.620410 1797.540039", "112.999992 5.999985 63.000011" );
+SpawnObject( "Land_Wreck_Caravan_WBrown", "2748.298096 7.818328 2005.555664", "92.000031 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Uaz", "2789.998535 6.622473 2010.286133", "-43.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_wreck_brdm", "2810.167725 6.090181 2028.123169", "-116.999947 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_bmp2", "2694.029785 7.150830 2005.968384", "143.000000 3.000000 8.000010" );
+SpawnObject( "Land_Garage_Office", "2719.743408 10.434888 1966.359375", "-179.999985 0.000000 0.000000" );
+SpawnObject( "Land_Repair_Center", "2723.423340 8.474616 1998.511597", "-179.999985 0.000000 0.000000" );
+SpawnObject( "ClutterCutter2x2", "2722.574219 5.981635 1996.439819", "0.000000 0.000000 -0.000000" );
+SpawnObject( "ClutterCutter2x2", "2722.574219 5.981635 1996.439819", "0.000000 0.000000 -0.000000" );
+SpawnObject( "Land_Container_1Aoh", "2685.473145 7.858430 1977.549316", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Container_1Aoh", "2689.186279 7.684550 1972.574219", "51.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_hospital_transport_bed", "2716.746826 6.010000 2006.814087", "0.000000 -3.000000 0.000000" );
+SpawnObject( "bldr_hospital_transport_bed", "2685.611328 7.022540 1956.342529", "38.000004 0.000000 90.000000" );
+SpawnObject( "bldr_hospital_transport_bed", "2718.713867 7.757510 1973.669556", "0.000000 -15.000002 -179.999985" );
+SpawnObject( "bldr_hospital_transport_bed", "2683.520752 6.951160 1968.491333", "0.000000 0.000000 90.000000" );
+SpawnObject( "bldr_hospital_transport_bed", "2657.028564 6.000000 1994.107910", "-41.000008 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2649.515869 6.745452 2014.193237", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2661.628174 6.707561 2010.857544", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus_f", "2657.741943 6.717924 2010.381226", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2685.141357 7.364424 1996.984375", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2700.943115 6.654528 2007.926758", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2706.676758 6.904598 2006.035645", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2718.350098 6.572249 2006.477173", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2723.891602 6.677090 2004.620117", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2728.295654 7.455687 1982.652954", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2721.826172 6.715234 1989.985718", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2712.997314 7.374864 1992.376831", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2687.522217 7.364424 1978.409912", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2704.455322 7.366181 1960.667236", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2713.598633 7.400344 1953.218750", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2708.169922 7.430176 1940.274536", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2699.885986 7.427382 1943.048584", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2692.702393 7.391264 1946.820068", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Carduus", "2687.717285 7.387374 1951.857178", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaForest", "2710.543701 6.195425 2018.260986", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2711.956543 6.344409 2017.823242", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2721.546387 6.357434 2006.013794", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2721.092285 6.362686 2001.516235", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2723.490234 6.358755 2006.064331", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2701.998047 6.380549 2006.336792", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2695.195801 6.377978 2006.091431", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2687.998779 7.046625 1996.616333", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2674.056152 6.397434 1988.678101", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2656.685791 6.397434 1994.818237", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2656.085205 6.404541 2012.513916", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2640.088623 6.506311 2017.266113", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_ElytrigiaTall", "2642.933838 6.477815 2015.811279", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Elytrigia_green", "2636.786621 6.471215 2011.493774", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Elytrigia_green", "2631.748535 6.559491 2014.615723", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Hypericum_f", "2634.225098 6.857290 2014.761963", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Polypodiophyta_tall", "2627.755371 6.716086 2007.616577", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Polypodiophyta_b", "2664.828125 6.270202 2012.860840", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_leafs_spread", "2692.050049 5.973969 2008.670044", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2692.045410 6.481186 2008.568237", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2705.666992 6.492083 2008.523193", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2717.010010 7.194156 1997.393433", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2711.441895 6.891237 1998.040161", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2707.245361 7.183716 1997.477173", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2703.114258 7.029408 1999.839722", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2706.520264 7.170504 1998.075562", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2706.362305 7.140872 1998.423340", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2688.372559 7.034117 1995.856689", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2698.207031 7.183716 1994.152832", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2696.099365 7.183717 1994.183960", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2705.509277 7.183716 1990.480469", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2703.005127 7.183716 1988.533081", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2703.202881 7.183716 1988.968506", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2699.184814 7.183717 1986.206177", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2692.200439 7.009836 1974.045288", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2690.322510 7.183717 1977.488647", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2682.382813 7.274979 1982.716675", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2673.489258 6.500081 1986.314575", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Twigs", "2683.836182 6.611125 1969.135376", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Twigs", "2683.836182 6.611125 1969.135376", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2683.554688 7.135689 1969.300293", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2680.345459 7.027031 1970.557617", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2686.066406 7.163136 1963.015991", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2697.814941 7.185473 1960.608643", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2704.418457 7.185473 1962.924683", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2716.944580 7.219636 1954.880371", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2717.822510 7.249468 1943.882202", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2717.984131 7.207306 1951.505493", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2706.068359 7.173116 1949.124268", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2703.441895 7.173116 1951.217407", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2696.746338 7.048026 1951.412109", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2697.628418 7.060956 1942.809448", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2685.813721 7.207816 1945.253174", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2681.781738 7.207816 1942.398560", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2685.293213 7.057066 1955.961060", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2710.040283 7.196606 1972.561035", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2708.003174 7.203516 1966.631714", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2700.756348 7.173116 1955.971191", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2699.827148 7.197266 1971.624390", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2699.956787 7.183717 1981.206421", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2711.505859 7.194156 1989.545654", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2708.078613 7.194156 1989.636108", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2716.615234 6.494526 2007.147583", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2689.110352 6.484298 2008.901733", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2658.643555 6.534811 2010.112915", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2642.223633 6.618843 2013.786011", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2660.330322 6.514657 2008.928589", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2677.437744 6.504609 2010.514160", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2685.682617 6.490186 2009.532471", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2705.481445 8.451626 1393.633789", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2701.485107 7.066155 1411.842041", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2710.963623 8.259275 1375.640869", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2712.470703 8.438895 1379.068604", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2699.737793 8.248905 1377.462036", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2700.896973 8.398505 1376.901245", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2697.265381 8.418217 1379.324829", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2702.957031 8.433656 1386.259644", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2699.981201 8.433656 1387.346924", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2696.147949 8.432503 1393.634277", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2696.990723 8.282903 1396.615112", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2690.443604 8.409023 1379.058228", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2708.572998 8.289295 1382.671997", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2705.980225 8.398505 1374.295410", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2677.965332 8.381845 1387.990845", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2671.029053 8.115059 1374.834351", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2675.559570 8.372308 1373.991943", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2678.461182 8.416776 1383.323364", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2674.344482 8.381845 1381.288818", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2671.037598 8.381845 1381.477905", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2662.633057 7.984043 1381.299072", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2647.926758 7.971301 1382.256836", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2637.500977 12.337249 1367.204468", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2635.866455 12.125590 1369.777466", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2634.685547 12.525590 1368.563599", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2635.223145 15.085168 1356.176514", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2638.000977 14.648696 1357.523926", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2585.406006 15.697995 1388.085083", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2612.949219 22.058277 1320.379883", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2609.867432 21.984194 1318.888306", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2616.934814 22.214396 1317.873047", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2631.494873 23.083437 1317.631714", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2634.202148 23.191166 1318.630859", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2634.780518 23.216183 1315.190430", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2650.834961 23.897671 1313.302124", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2651.697754 23.934525 1311.933960", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2651.367432 23.934525 1310.438843", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2654.316162 23.903204 1313.789917", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2652.791504 23.871107 1313.871338", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2659.661865 23.943697 1311.355713", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2721.234863 23.919462 1310.063477", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2726.474854 23.880224 1299.582886", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2739.083740 24.343906 1310.565674", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2740.812744 25.695566 1284.842651", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2745.835693 26.504524 1282.249878", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2754.187256 26.507126 1284.317871", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2753.817871 26.502768 1281.487061", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2758.180420 26.496950 1281.056152", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2762.292236 26.495909 1283.538696", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2761.922607 26.494524 1280.301147", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2762.044434 26.494524 1280.576538", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2741.134766 25.753767 1285.857910", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2641.510498 23.397848 1322.911255", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2708.845703 0.330510 1484.512939", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2704.236572 7.114850 1512.403809", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2706.388672 6.252701 1509.319580", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2691.943115 0.688453 1617.932739", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2702.218018 7.246675 1942.084473", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2705.308105 7.246675 1945.389282", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_plnt_c_Lolium", "2704.149658 7.246675 1946.537476", "0.000000 0.000000 -0.000000" );
+SpawnObject( "bldr_rail_crossing_barrier", "2706.380127 9.696230 1977.188110", "0.000000 0.000000 -0.000000" );
+SpawnObject( "Land_Workshop2", "2622.680420 2.964150 1454.174194", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Workshop1", "2640.762939 2.975700 1486.459961", "-179.999939 0.000000 0.000000" );
+SpawnObject( "bldr_Platform1_Wall", "2696.840088 11.102404 1937.828247", "90.000000 -90.000000 0.000009" );
+SpawnObject( "bldr_Platform1_Wall", "2709.742920 11.102404 1937.949951", "90.000000 90.000000 0.000009" );
+SpawnObject( "bldr_Platform1_Wall", "2703.290039 13.082188 1937.839966", "90.000015 0.000000 -179.999985" );
+SpawnObject( "bldr_Platform1_Wall", "2697.879883 11.102404 1937.799561", "90.000000 -90.000000 0.000009" );
+SpawnObject( "bldr_Platform1_Wall", "2708.733154 11.105196 1937.949951", "-89.999992 90.000000 -179.999985" );
+SpawnObject( "bldr_Platform1_Wall", "2703.369873 15.652421 1937.825317", "90.000000 0.000000 0.000000" );
+//kamenka,balota extra tents. balota gas station houses
+SpawnObject( "bldr_hbarrier_6m", "1263.932739 6.783570 2422.122803", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1269.533325 6.776289 2422.262939", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1275.125610 6.869320 2422.265625", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1280.770630 6.853560 2422.593018", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1282.955566 6.758585 2437.593018", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1282.952881 6.853457 2426.058105", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1277.272095 6.742249 2447.650635", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1271.830078 6.746222 2447.746094", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "1266.301025 6.751861 2447.796387", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "1253.709839 6.729467 2448.048096", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "1279.866333 6.705699 2451.352539", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big2_4", "1274.820923 8.132804 2439.222168", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "1264.469727 6.153280 2430.569824", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "1276.074829 6.212294 2429.570557", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big2_4", "1258.432251 8.140640 2439.943604", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_iron", "1255.384644 7.075523 2415.834717", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_iron", "1245.658325 6.844575 2426.568604", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_iron", "1253.904541 6.794574 2454.535889", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_iron", "1293.507568 6.841175 2428.911621", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tower_Small", "1271.169189 9.878871 2451.439941", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "1270.010010 9.655918 2415.839111", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_pallets", "1250.817993 6.335219 2429.032227", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_pallets", "1249.662109 6.333678 2427.270508", "59.999996 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_bags_long", "1260.563599 6.166518 2414.667725", "40.000000 0.000000 0.000000" );
+SpawnObject( "Land_HouseBlock_1F3", "5924.683105 14.455013 2182.062744", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_House_2W02", "5890.350586 14.155231 2173.114502", "160.000000 0.000000 0.000000" );
+SpawnObject( "Land_Camp_House_red", "5980.691895 12.576238 2198.664795", "160.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile1", "5879.512207 9.537195 2174.065186", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile3", "5911.850586 9.383721 2187.901611", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile4", "5904.559082 9.139012 2182.024414", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile4", "5906.072266 9.269566 2182.189697", "100.000008 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile6", "5918.761230 9.184264 2182.695313", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container", "5916.942383 10.002282 2186.202148", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container_Paper", "5920.222168 10.662896 2174.713867", "130.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container_Plastic", "5918.889648 10.622860 2172.472900", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "5893.690918 9.595201 2176.047607", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "5928.488770 9.457253 2187.556641", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Bin", "5931.180176 10.354466 2177.387939", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Bin", "5891.022949 9.810305 2177.097412", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile6", "5986.083496 10.407302 2186.322266", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wheel_cart_dz", "5985.437012 10.384097 2205.113770", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_woodpile_forest1", "5985.244629 11.225288 2198.047119", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_woodpile_forest1", "5977.426270 11.089205 2194.366699", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Ground_6m", "5930.162109 9.198093 2189.511475", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Ground_6m", "5905.557129 9.093679 2184.036133", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5900.012695 9.067820 2183.397217", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5908.700195 9.274743 2180.409180", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5895.938965 9.244301 2178.114990", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5878.701660 9.045435 2176.639893", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "5958.813477 9.819823 2197.217285", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5958.329590 9.520118 2199.063232", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_GroundSq_5m", "5958.474121 9.669080 2194.663818", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tower_Small", "4902.919434 11.034092 2222.027832", "29.999998 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tower_Small", "4875.229492 11.758496 2239.055908", "29.999998 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4900.544434 8.075800 2229.533203", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4896.531738 8.277970 2232.726807", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4887.718262 8.426841 2239.264893", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4883.381348 8.433611 2242.852539", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "4878.395508 8.422370 2245.269043", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "4906.458008 7.636681 2219.905273", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4873.109863 8.606161 2239.514160", "119.999992 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4870.303223 8.665937 2234.507568", "119.999992 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4864.523926 8.608741 2226.066650", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4859.709473 8.550236 2229.317383", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4861.536621 8.458745 2218.555420", "130.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4889.418457 7.923731 2206.387451", "119.999992 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4886.751465 7.788207 2201.398438", "119.999992 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "4860.718262 8.494532 2236.286377", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "4903.642578 7.746847 2217.093262", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_1m", "4896.845703 8.051312 2217.255127", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4861.686523 8.110685 2209.634277", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_hbarrier_6m", "4880.525879 7.308904 2189.895996", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_mil_artilery_rampart", "4906.736816 7.070142 2237.428467", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_mil_artilery_rampart", "4885.871094 7.236923 2257.153076", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_concrete", "4878.724609 6.781845 2272.756348", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_concrete", "4906.710449 6.842725 2251.079590", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_hedgehog_concrete", "4924.909180 5.886234 2244.032715", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "4876.718750 7.997020 2228.648682", "119.999992 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "4868.582520 7.702598 2214.140625", "119.999992 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "4889.741211 7.741622 2220.557129", "119.999992 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_4", "4880.514648 7.373035 2205.949463", "119.999992 0.000000 0.000000" );
+SpawnObject( "bldr_medical_table", "4878.300293 7.867821 2220.826172", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_medical_table", "4868.607910 7.430377 2207.283203", "80.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c", "4884.585938 7.747550 2218.218262", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c", "4873.241699 7.745305 2216.282959", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c_multi", "4877.298828 7.769948 2217.319824", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c_multi", "4892.024414 7.780609 2228.000977", "90.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_boxwooden", "4880.628418 8.449139 2231.389893", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_boxwooden", "4875.607910 7.716606 2202.046387", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_bulldozer", "4855.681152 9.087331 2240.689941", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_hmmwv", "4895.286621 7.717674 2196.347656", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_hmmwv", "4869.639160 8.082154 2260.605225", "59.999996 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "4891.999023 7.914042 2251.589844", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_DirtPile_Large", "4855.920410 8.398137 2236.230225", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets3", "4870.246094 8.136673 2240.704346", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets3", "4902.779785 7.496305 2230.006592", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets3", "4892.744629 7.350393 2204.877686", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets1", "4893.275391 7.475307 2204.173584", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets1", "4886.251953 8.231180 2230.622314", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets1", "4871.792969 8.281126 2242.642578", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets1", "4880.979492 7.585314 2202.371338", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_pallets1", "4874.674316 8.319366 2225.722412", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_boardspack2", "4845.770996 7.687158 2223.035156", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_boardspack2", "4850.292480 8.140657 2226.380127", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_boardspack2", "4901.393066 7.692161 2206.362793", "40.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "4888.650879 7.428646 2202.732910", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "4887.863770 8.023035 2240.894287", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "4868.076172 8.289068 2235.006592", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile2", "4860.644531 7.595070 2208.645996", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c_multi", "1257.633423 6.160000 2423.712646", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_box_c_multi", "1252.162476 6.159550 2424.273682", "50.000004 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile1", "1276.776489 6.681421 2420.628174", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile1", "1283.867676 6.579197 2437.970459", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big3", "4864.171875 7.741805 2193.326660", "29.999998 0.000000 0.000000" );
+//balota
 SpawnObject( "Land_City_FireStation", "4752.363770 8.760956 2575.952148", "-179.999985 0.000000 0.000000" );
 SpawnObject( "Land_Mil_Guardhouse2", "4847.837402 11.153448 2580.158936", "-10.000001 0.000000 0.000000" );
 SpawnObject( "bldr_Airfield_Lamp", "4857.051758 22.120039 2570.510010", "0.000000 0.000000 0.000000" );
 SpawnObject( "bldr_Garbage_Container", "4857.665527 10.457524 2567.965820", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile2", "4882.175293 9.756313 2524.871582", "55.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "4854.040527 9.517084 2565.341064", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "4863.070313 9.613158 2501.092041", "98.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "4854.895996 9.704255 2571.083252", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "4852.798828 9.959124 2533.221191", "40.000000 0.000000 0.000000" );
 SpawnObject( "bldr_misc_barbedwire", "4836.189453 9.838602 2574.301758", "90.000000 0.000000 0.000000" );
 SpawnObject( "bldr_misc_barbedwire", "4834.982422 10.238881 2562.523193", "88.000000 0.000000 0.000000" );
 SpawnObject( "bldr_misc_barbedwire", "4836.643555 11.092972 2539.591797", "70.000000 0.000000 0.000000" );
@@ -47,21 +883,6 @@ SpawnObject( "Land_Mil_Tent_Big2_1", "4870.632813 11.441567 2497.966553", "0.000
 SpawnObject( "Land_Mil_Tent_Big2_1", "4867.658203 11.560353 2566.165283", "0.000000 0.000000 0.000000" );
 SpawnObject( "Land_Mil_Tent_Big2_5", "4884.309082 11.492998 2510.940430", "0.000000 0.000000 0.000000" );
 SpawnObject( "Land_Mil_Tent_Big3", "4859.330078 10.888555 2542.703125", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Ground_6m", "4851.629395 10.030811 2527.273438", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Ground_6m", "4855.379395 9.616853 2551.573730", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4841.426270 9.843908 2552.617188", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4849.975098 10.018189 2533.965576", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4862.642578 9.668868 2527.913086", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4880.831055 9.500000 2524.831543", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_3m", "4878.439453 9.500000 2540.243408", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4857.230469 9.518495 2564.783447", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_3m", "4857.250977 9.518495 2564.690430", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Ground_6m", "4852.254395 9.611013 2569.381348", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4851.577637 9.611013 2569.797607", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Ground_6m", "4854.012695 9.993150 2515.331299", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4853.335938 9.993150 2515.747559", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4861.129395 9.622488 2498.744629", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_GroundSq_5m", "4903.817383 9.500000 2522.570557", "0.000000 0.000000 0.000000" );
 SpawnObject( "bldr_Garbage_Bin", "4858.109375 10.431466 2519.113037", "0.000000 0.000000 0.000000" );
 SpawnObject( "bldr_Garbage_Bin", "4850.103516 10.224619 2552.244873", "0.000000 0.000000 0.000000" );
 SpawnObject( "bldr_Garbage_Bin", "4883.792969 10.065725 2516.233154", "0.000000 0.000000 0.000000" );
@@ -585,6 +1406,7 @@ SpawnObject( "ClutterCutter6x6", "8641.070313 7.517996 2527.558105", "0.000000 0
 SpawnObject( "Land_FuelStation_Build", "8660.018555 8.106958 2477.412109", "-169.999969 0.000000 0.000000" );
 SpawnObject( "bldr_FuelStation_Shed", "8652.862305 9.444623 2494.539795", "59.999996 0.000000 0.000000" );
 SpawnObject( "ChristmasTree", "10466.905273 13.731251 2379.298340", "0.000000 0.000000 0.000000" );
+//elektro
 //elektro cache
 SpawnObject( "AKM", "10478.594727 6.278938 2380.326416", "0.000000 -89.965729 0.000000" );
 SpawnObject( "AKM", "10463.437500 6.251680 2383.831299", "0.000000 89.965729 0.000000" );
@@ -848,6 +1670,328 @@ SpawnObject( "Mag_UMP_25Rnd", "10470.576172 6.134625 2388.868896", "0.000000 89.
 SpawnObject( "Mag_UMP_25Rnd", "10470.569336 6.165217 2388.855225", "-179.997589 -89.947662 -99.393250" );
 SpawnObject( "Mag_UMP_25Rnd", "10470.555664 6.170082 2388.827148", "-0.002959 89.934380 -145.741058" );
 SpawnObject( "Mag_UMP_25Rnd", "10470.553711 6.200822 2388.824463", "-0.007084 89.923386 -8.192146" );
+//killhaus
+SpawnObject( "Land_Tisy_Barracks", "7504.378418 10.277354 3552.409180", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_3m", "7497.770020 14.398100 3555.780029", "160.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_corner", "7491.359863 14.398100 3543.120117", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_3m", "7494.859863 14.398100 3542.949951", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_antenna", "7490.089844 17.583799 3546.860107", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_pillbox", "7496.689941 15.080300 3549.810059", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_bags_long", "7506.990234 16.577999 3550.909912", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_mil_fortified_nest_small", "7516.140137 15.004600 3556.929932", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_razorwire", "7500.541016 6.735067 3542.596436", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7496.959961 10.613900 3543.030029", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7517.180176 10.613900 3552.570068", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7502.359863 6.463210 3545.010010", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_a", "7493.029785 6.463310 3541.709961", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7512.850098 6.463210 3559.850098", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7515.970215 10.613900 3560.919922", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_cans_b", "7516.189941 10.613900 3556.149902", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_corner", "7519.390137 14.398100 3555.270020", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_bags_endl", "7512.850098 14.626600 3551.570068", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_bags_endr", "7508.839844 14.195000 3552.219971", "-170.000015 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_corner", "7488.299805 14.398100 3550.879883", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_corner", "7501.129883 14.398100 3555.909912", "160.000000 0.000000 0.000000" );
+SpawnObject( "bldr_bridge_stone_25", "7594.609863 7.132390 3581.699951", "-20.000000 0.000000 90.000000" );
+SpawnObject( "bldr_bridge_stone_25", "7559.640137 7.083420 3569.080078", "160.000000 0.000000 90.000000" );
+SpawnObject( "Land_Castle_Gate", "7582.189941 9.389470 3561.229980", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Castle_Gate", "7571.209961 9.429650 3589.850098", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Castle_Stairs", "7593.879883 7.009420 3566.639893", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Castle_Stairs", "7556.680176 6.614880 3583.570068", "160.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_StadiumBenches", "7600.089844 14.912200 3585.159912", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_StadiumBenches", "7553.729980 14.297700 3566.830078", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_StadiumBenches", "7553.729980 14.297700 3566.830078", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Statue_General", "7554.979980 6.882220 3567.409912", "-90.000000 40.000000 0.000000" );
+SpawnObject( "bldr_Statue_General", "7599.830078 6.912090 3581.770020", "90.000000 40.000000 0.000000" );
+SpawnObject( "bldr_rds_runway_beton", "7504.439941 5.981750 3552.360107", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_gate_cgry", "7569.450195 7.940370 3594.870117", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_gate_cgry", "7583.939941 7.923600 3555.949951", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_dragonteeth_big", "7579.640137 9.500000 3585.639893", "70.000000 0.000000 90.000000" );
+SpawnObject( "bldr_misc_dragonteeth_big", "7567.439941 9.788540 3581.370117", "70.000000 0.000000 90.000000" );
+SpawnObject( "bldr_misc_dragonteeth_big", "7586.350098 8.787300 3569.689941", "70.000000 0.000000 -90.000000" );
+SpawnObject( "bldr_misc_dragonteeth_big", "7574.720215 8.761310 3565.610107", "70.000000 0.000000 -90.000000" );
+SpawnObject( "Land_Wall_Gate_FenG_Big", "7584.140137 6.894810 3555.560059", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_FenG_Big", "7569.470215 6.993580 3594.879883", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_FenG_Open", "7585.399902 7.557800 3560.149902", "70.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_FenG", "7574.439941 7.617810 3588.790039", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Monument_Soldiers", "7581.160156 21.579500 3560.159912", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_gate_cgry", "7580.240234 7.897170 3566.270020", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_gate_cgry", "7572.979980 7.991450 3584.770020", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_FenG_Big", "7573.240234 6.973800 3584.479980", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_FenG_Big", "7580.069824 6.916710 3566.530029", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_flag_chernarus_wall", "7583.959961 16.000299 3555.250000", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_flag_chernarus_wall", "7569.419922 16.023500 3595.590088", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_StadiumBenches", "7559.700195 14.383500 3558.909912", "-140.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_StadiumBenches", "7595.459961 14.467200 3592.239990", "20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_mil_camonet_roof_nato", "7571.439941 18.557199 3589.639893", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_flag_chernarus_pole", "7557.839844 7.200270 3566.350098", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_flag_chernarus_pole", "7596.609863 7.648250 3582.800049", "179.999985 0.000000 0.000000" );
+SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7554.430176 17.000000 3575.219971", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7600.120117 16.544201 3574.969971", "0.000000 0.000000 0.000000" );
+SpawnObject( "ClutterCutter6x6", "7569.899902 6.019480 3572.610107", "0.000000 0.000000 0.000000" );
+SpawnObject( "ClutterCutter6x6", "7566.259766 6.010520 3571.070068", "0.000000 0.000000 0.000000" );
+SpawnObject( "ClutterCutter6x6", "7582.540039 6.044550 3575.689941", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_City_Stand_FastFood", "7574.520020 7.768190 3599.489990", "160.000000 0.000000 0.000000" );
+SpawnObject( "Land_City_Stand_Grocery", "7578.359863 7.759310 3551.879883", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_Sunshade", "7570.990234 7.285540 3540.350098", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_Sunshade", "7604.049805 7.291800 3552.189941", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_Sunshade", "7550.169922 7.297400 3605.729980", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Misc_Sunshade", "7579.859863 7.041750 3616.870117", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_ltable", "7571.029785 6.473760 3540.530029", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_ltable", "7604.009766 6.479900 3552.100098", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_ltable", "7579.799805 6.228800 3617.070068", "70.000000 0.000000 0.000000" );
+SpawnObject( "bldr_tent_ltable", "7550.149902 6.482990 3606.120117", "70.000000 0.000000 0.000000" );
+SpawnObject( "Land_City_Stand_News2", "7561.930176 7.620600 3595.169922", "160.000000 0.000000 0.000000" );
+SpawnObject( "Land_City_Stand_News2", "7590.740234 7.582780 3556.870117", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_roadblock_bags_endl", "7505.500000 14.626600 3547.199951", "-59.999996 0.000000 0.000000" );
+SpawnObject( "bldr_misc_bagfence_3m", "7511.540039 14.398100 3559.209961", "160.000000 0.000000 0.000000" );
+SpawnObject( "Land_Radio_PanelPAS", "7506.439941 10.614000 3550.889893", "70.000000 0.000000 0.000000" );
+SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7510.490234 9.481050 3537.699951", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7519.529785 9.477990 3540.800049", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_7_100", "7510.520020 5.998720 3525.149902", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_22_50", "7520.850098 5.997960 3529.070068", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_22_50", "7525.939941 6.000000 3516.709961", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_22_50", "7527.930176 6.000000 3514.290039", "-29.999998 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_22_50", "7518.319824 6.000000 3525.040039", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_22_50", "7521.649902 6.000000 3501.169922", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_25", "7529.939941 6.000000 3486.320068", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_rds_mud_60_10", "7529.410156 6.000000 3502.489990", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_a", "7505.600098 6.463220 3546.110107", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_case_a", "7505.490234 10.614000 3546.149902", "-20.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Uaz", "7522.379883 6.828690 3535.870117", "119.999992 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Volha_Police", "7486.700195 6.712640 3544.750000", "-179.999985 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Volha_Police", "7515.439941 6.712640 3547.070068", "50.000004 0.000000 0.000000" );
+SpawnObject( "bldr_wreck_brdm", "7513.129883 6.547330 3516.439941", "70.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_Volha_Blue", "7503.229980 6.736940 3501.959961", "140.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wreck_S1023_Beige", "7544.310059 6.999130 3479.169922", "-29.999998 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb_Trail_G", "7466.914551 13.819901 3490.677490", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb_Trail_G", "7447.359863 13.847200 3463.399902", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Wall_Gate_Camp", "7515.220215 7.514900 3536.909912", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7507.529785 6.488690 3534.159912", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9_2", "7490.770020 6.490610 3527.969971", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9_2", "7523.279785 6.482430 3539.320068", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7531.680176 6.480000 3542.530029", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7540.080078 6.481390 3545.669922", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7499.189941 6.490000 3531.169922", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7482.279785 6.491320 3525.000000", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7473.299805 6.489250 3536.030029", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7470.120117 6.478940 3544.449951", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7467.029785 6.485010 3552.770020", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7476.350098 6.492810 3527.649902", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7542.649902 6.480630 3551.580078", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7539.709961 6.494770 3559.969971", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7533.379883 6.530450 3576.979980", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9_2", "7536.669922 6.506810 3568.550049", "-110.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7527.589844 6.542160 3579.719971", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7519.109863 6.535830 3576.610107", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7510.569824 6.519490 3573.600098", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7502.129883 6.511290 3570.540039", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7493.750000 6.505810 3567.370117", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7476.770020 6.497600 3561.209961", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9", "7485.169922 6.501820 3564.370117", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_wall_tincom_9_2", "7469.580078 6.494600 3558.500000", "-20.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_Metal1", "7500.299805 6.219210 3530.560059", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_Metal3", "7503.910156 5.938560 3531.239990", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Rubble_Metal2", "8662.559570 87.790298 3008.260010", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Pile3", "7532.540039 6.249190 3542.070068", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Bin", "7506.140137 6.545730 3545.000000", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_misc_gcontainer_big", "7474.310059 6.711770 3552.469971", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container", "7520.879883 6.838630 3560.330078", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container_Glass", "7504.220215 6.835410 3557.919922", "-37.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container_Plastic", "7506.370117 6.836690 3558.879883", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_Garbage_Container_Glass", "7509.390137 6.837650 3559.600098", "50.000004 0.000000 0.000000" );
+SpawnObject( "ChristmasTree", "7527.672852 13.727050 3563.755371", "0.000000 0.000000 0.000000" );
+SpawnObject( "AK74", "7530.004883 6.001973 3557.769287", "0.000000 -89.842979 -69.073143" );
+SpawnObject( "AK74", "7530.876953 6.032471 3571.991455", "0.000000 -89.768448 -92.320930" );
+SpawnObject( "AK74_Hndgrd", "7530.446289 6.038370 3571.825684", "-179.999985 89.768448 -16.946938" );
+SpawnObject( "AK74_Hndgrd", "7530.289063 6.009613 3558.060059", "-153.435486 89.824165 -3.335601" );
+SpawnObject( "AK74_WoodBttstck", "7530.063477 6.006473 3557.512451", "-153.435486 89.824165 151.971878" );
+SpawnObject( "AK74_WoodBttstck", "7530.989258 6.035864 3571.687744", "0.000000 -89.768448 -40.474861" );
+SpawnObject( "Mag_AK74_30Rnd", "7531.425781 6.032533 3572.054199", "0.000000 -89.768448 -169.381393" );
+SpawnObject( "Mag_AK74_30Rnd", "7531.296387 6.034158 3572.460449", "0.000000 -89.768448 171.666611" );
+SpawnObject( "Mag_AK74_30Rnd", "7530.412109 6.033998 3572.420410", "0.000000 -89.768448 49.165298" );
+SpawnObject( "Mag_AK74_30Rnd", "7530.779785 6.036202 3572.971680", "0.000000 -89.768448 -46.924042" );
+SpawnObject( "Mag_AK74_30Rnd", "7529.523438 6.001606 3557.734131", "0.000000 -89.842979 123.874619" );
+SpawnObject( "Mag_AK74_30Rnd", "7529.730469 6.002494 3558.066895", "0.000000 -89.842979 -10.162663" );
+SpawnObject( "Mag_AK74_30Rnd", "7530.086426 6.003389 3558.359131", "26.564503 -89.824165 74.765388" );
+SpawnObject( "Mag_AK74_30Rnd", "7530.424316 6.002646 3557.740967", "-153.435486 89.824165 -157.368607" );
+SpawnObject( "Mosin9130", "7526.269043 6.010068 3558.077148", "-44.998634 -89.886353 164.225937" );
+SpawnObject( "Mosin9130", "7534.484375 6.026912 3567.214600", "-179.999985 89.913765 -133.581345" );
+SpawnObject( "Ammo_762x54", "7534.249023 6.013575 3567.116455", "-157.504776 -0.070583 -0.029230" );
+SpawnObject( "Ammo_762x54", "7534.409180 6.012826 3566.554443", "-86.904495 0.004125 -0.076285" );
+SpawnObject( "AmmoBox_762x54_20Rnd", "7534.706055 6.017939 3566.957764", "0.000000 -89.913765 167.843262" );
+SpawnObject( "AmmoBox_762x54_20Rnd", "7533.729004 6.018650 3567.384277", "-179.999985 89.913765 -171.166702" );
+SpawnObject( "AmmoBox_762x54_20Rnd", "7525.852539 6.001917 3558.294678", "-44.998634 -89.886353 97.899475" );
+SpawnObject( "AmmoBox_762x54_20Rnd", "7526.805176 6.000420 3558.017578", "135.001358 89.886353 170.477219" );
+SpawnObject( "Ammo_762x54", "7526.297852 5.996966 3558.458008", "33.003994 0.022457 0.105678" );
+SpawnObject( "Ammo_762x54", "7526.475098 5.995947 3557.871338", "153.615585 -0.102386 -0.034485" );
+SpawnObject( "SKS", "7519.399414 6.055523 3571.979004", "0.000000 -89.768448 -37.991882" );
+SpawnObject( "SKS", "7536.127930 6.032386 3558.600342", "0.000000 -89.913765 -66.776932" );
+SpawnObject( "AmmoBox_762x39_20Rnd", "7535.287109 6.020932 3558.376465", "-179.999985 89.913765 134.372391" );
+SpawnObject( "AmmoBox_762x39_20Rnd", "7536.154297 6.020275 3557.884277", "-179.999985 89.913765 77.791061" );
+SpawnObject( "Ammo_762x39", "7536.391113 5.997269 3558.214355", "69.040207 0.027328 0.071341" );
+SpawnObject( "Ammo_762x39", "7535.855469 5.997940 3558.717529", "149.945969 -0.066125 0.038260" );
+SpawnObject( "Mag_CLIP762x39_10Rnd", "7535.852539 6.037488 3558.935547", "-179.999985 89.913765 -143.667084" );
+SpawnObject( "Mag_CLIP762x39_10Rnd", "7535.983887 6.036216 3557.981689", "-179.999985 89.913765 147.995850" );
+SpawnObject( "Mag_CLIP762x39_10Rnd", "7519.288086 6.058125 3571.470947", "0.000000 -89.768448 161.767624" );
+SpawnObject( "Mag_CLIP762x39_10Rnd", "7519.395020 6.061535 3572.323486", "0.000000 -89.768448 -52.724995" );
+SpawnObject( "AmmoBox_762x39_20Rnd", "7519.538086 6.043396 3571.740967", "-179.999985 89.768448 -14.452973" );
+SpawnObject( "AmmoBox_762x39_20Rnd", "7518.448730 6.045350 3572.044922", "0.000000 -89.768448 -98.836014" );
+SpawnObject( "Ammo_762x39", "7518.958008 6.018977 3571.498291", "-8.745452 0.226515 -0.034846" );
+SpawnObject( "Ammo_762x39", "7519.167969 6.022248 3572.316162", "168.260651 -0.224386 0.046629" );
+SpawnObject( "SVD", "7524.415527 6.023151 3562.430908", "0.000000 -89.842979 121.633324" );
+SpawnObject( "Mag_SVD_10Rnd", "7524.394043 6.014326 3562.581055", "0.000000 -89.913765 80.037834" );
+SpawnObject( "Mag_SVD_10Rnd", "7525.181152 6.013577 3562.240479", "-179.999985 89.842979 -59.498287" );
+SpawnObject( "Mag_SVD_10Rnd", "7525.020996 6.014233 3562.486572", "-179.999985 89.842979 42.578812" );
+SpawnObject( "Mag_SVD_10Rnd", "7524.255371 6.015080 3563.108398", "-179.999985 89.913765 -98.632759" );
+SpawnObject( "SVD", "7530.396484 6.023845 3562.882324", "0.000000 -89.913765 -140.761124" );
+SpawnObject( "Mag_SVD_10Rnd", "7529.937988 6.013897 3562.360352", "-179.999985 89.842979 168.431030" );
+SpawnObject( "Mag_SVD_10Rnd", "7530.327148 6.013329 3561.999023", "26.564503 -89.824165 153.737534" );
+SpawnObject( "Mag_SVD_10Rnd", "7530.610352 6.014917 3562.985840", "-179.999985 89.913765 134.537186" );
+SpawnObject( "Mag_SVD_10Rnd", "7531.541016 6.014373 3562.578125", "-179.999985 89.913765 -0.917368" );
+SpawnObject( "FAL", "7527.715820 6.030812 3568.497314", "-179.999985 89.913765 146.589554" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.923340 6.022364 3568.609863", "0.000000 -89.913765 75.621231" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.036133 6.021791 3568.180664", "0.000000 -89.913765 2.768648" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.047852 6.023283 3569.260254", "-179.999985 89.913765 117.441925" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.499512 6.037483 3568.739746", "-179.999985 89.913765 -93.952438" );
+SpawnObject( "Fal_FoldingBttstck", "7526.640625 6.025759 3568.701904", "-179.999985 89.913765 -114.112976" );
+SpawnObject( "Fal_FoldingBttstck", "7527.946777 6.014287 3561.198242", "0.000000 -89.842979 134.817352" );
+SpawnObject( "FAL", "7527.829590 6.017988 3560.880615", "0.000000 -89.842979 24.082773" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.388672 6.009174 3560.589355", "-179.999985 89.842979 -130.439178" );
+SpawnObject( "Mag_FAL_20Rnd", "7527.750977 6.009030 3560.535400", "-179.999985 89.842979 167.244476" );
+SpawnObject( "Mag_FAL_20Rnd", "7528.260742 6.010334 3561.024414", "-179.999985 89.842979 97.116615" );
+SpawnObject( "Mag_FAL_20Rnd", "7528.116211 6.008925 3560.515381", "0.000000 -89.842979 -41.529583" );
+SpawnObject( "M4A1", "7523.561035 6.023969 3560.582764", "135.001358 89.886353 145.087067" );
+SpawnObject( "M4A1", "7522.232910 6.035400 3568.141602", "-179.999985 89.913765 113.519699" );
+SpawnObject( "M4_PlasticHndgrd", "7521.898926 6.039742 3567.972656", "0.000000 -89.913765 67.853630" );
+SpawnObject( "M4_CQBBttstck", "7522.016113 6.033090 3567.790771", "0.000000 -89.913765 100.440102" );
+SpawnObject( "M4_CarryHandleOptic", "7522.401367 6.026547 3568.146973", "-179.999985 89.913765 47.401958" );
+SpawnObject( "M4_CarryHandleOptic", "7523.316406 6.015460 3560.651855", "135.001358 89.886353 -71.811615" );
+SpawnObject( "M4_OEBttstck", "7523.658203 6.017861 3560.311768", "-44.998634 -89.886353 -9.088664" );
+SpawnObject( "M4_PlasticHndgrd", "7523.253418 6.028298 3560.144043", "135.001358 89.886353 39.340446" );
+SpawnObject( "Mag_STANAGCoupled_30Rnd", "7522.894531 6.052176 3560.133545", "135.001358 89.886353 -70.394356" );
+SpawnObject( "Mag_STANAGCoupled_30Rnd", "7522.617188 6.024848 3567.877686", "0.000000 -89.913765 -45.638599" );
+SpawnObject( "Mag_STANAG_30Rnd", "7521.793457 6.021687 3568.467529", "-179.999985 89.913765 -81.614433" );
+SpawnObject( "Mag_STANAG_30Rnd", "7524.335449 6.007330 3560.242676", "-44.998634 -89.886353 -8.835963" );
+SpawnObject( "Mag_STANAG_30Rnd", "7523.073242 6.011086 3561.090576", "135.001358 89.886353 118.037903" );
+SpawnObject( "Mag_STANAG_30Rnd", "7521.412598 6.020860 3567.847168", "-179.999985 89.913765 -48.489635" );
+SpawnObject( "AKM", "7524.328613 6.030210 3571.426514", "0.000000 -89.768448 86.530960" );
+SpawnObject( "Mag_AKM_30Rnd", "7524.054688 6.029838 3571.567383", "0.000000 -89.768448 -142.793640" );
+SpawnObject( "Mag_AKM_30Rnd", "7524.928223 6.030547 3571.051758", "-179.999985 89.768448 74.626907" );
+SpawnObject( "Mag_AKM_30Rnd", "7524.879395 6.033324 3571.745850", "-179.999985 89.768448 -84.481918" );
+SpawnObject( "Mag_AKM_30Rnd", "7524.849609 6.030848 3571.819824", "0.000000 -89.768448 -99.341408" );
+SpawnObject( "AKM", "7533.426270 6.034004 3562.847656", "-179.999985 89.913765 -116.914574" );
+SpawnObject( "Mag_AKM_30Rnd", "7533.795410 6.016242 3562.426514", "-179.999985 89.913765 -13.760800" );
+SpawnObject( "Mag_AKM_30Rnd", "7534.012207 6.016890 3562.912842", "-179.999985 89.913765 -45.808880" );
+SpawnObject( "Mag_AKM_30Rnd", "7533.635254 6.014786 3563.413818", "0.000000 -89.913765 145.562302" );
+SpawnObject( "Mag_AKM_30Rnd", "7532.763672 6.013243 3562.257080", "0.000000 -89.913765 151.923584" );
+SpawnObject( "Mag_AKM_Drum75Rnd", "7522.729004 6.060625 3569.790771", "-106.221786 -0.021342 -90.073357" );
+SpawnObject( "Mag_AKM_Drum75Rnd", "7535.476563 6.054455 3565.162842", "69.169281 0.027167 -89.928604" );
+SpawnObject( "AK_WoodHndgrd", "7533.292480 6.021334 3563.525879", "0.000000 -89.913765 -70.677200" );
+SpawnObject( "AK_WoodHndgrd", "7524.270508 6.039755 3572.171875", "-179.999985 89.768448 -83.690933" );
+SpawnObject( "AK_WoodBttstck", "7524.388672 6.033908 3571.054932", "-179.999985 89.768448 -93.095505" );
+SpawnObject( "AK_WoodBttstck", "7533.417969 6.018382 3561.952881", "0.000000 -89.913765 -62.525101" );
+SpawnObject( "CZ61", "7531.109375 6.011214 3560.157959", "26.564503 -89.824165 -40.968117" );
+SpawnObject( "CZ61", "7528.056152 6.057736 3571.760986", "0.000000 -89.842979 -123.369232" );
+SpawnObject( "Mag_CZ61_20Rnd", "7530.741699 6.005478 3560.104248", "-153.435486 89.824165 -60.213535" );
+SpawnObject( "Mag_CZ61_20Rnd", "7531.316895 6.004820 3559.772705", "26.564503 -89.824165 -91.232101" );
+SpawnObject( "Mag_CZ61_20Rnd", "7531.710938 6.007656 3560.436523", "-153.435486 89.824165 52.685383" );
+SpawnObject( "Mag_CZ61_20Rnd", "7530.868652 6.006273 3560.541748", "26.564503 -89.824165 -170.105347" );
+SpawnObject( "Mag_CZ61_20Rnd", "7527.652344 6.027909 3571.757813", "-179.999985 89.768448 167.277435" );
+SpawnObject( "Mag_CZ61_20Rnd", "7528.429199 6.028775 3572.109619", "0.000000 -89.768448 113.316429" );
+SpawnObject( "Mag_CZ61_20Rnd", "7528.228516 6.026725 3571.596924", "0.000000 -89.768448 112.580322" );
+SpawnObject( "Mag_CZ61_20Rnd", "7527.754883 6.030448 3572.392822", "-179.999985 89.768448 124.616234" );
+SpawnObject( "MP5K", "7531.973633 6.024039 3568.432617", "-179.999985 89.913765 -81.998947" );
+SpawnObject( "MP5_PlasticHndgrd", "7531.879883 6.023304 3567.997070", "0.000000 -89.913765 -85.476234" );
+SpawnObject( "bldr_MP5k_StockBttstck", "7532.431152 6.007994 3568.494873", "0.000000 0.000000 0.000000" );
+SpawnObject( "Mag_MP5_30Rnd", "7531.652832 6.012391 3568.397949", "0.000000 -89.913765 -32.289803" );
+SpawnObject( "Mag_MP5_30Rnd", "7532.160156 6.013438 3568.950195", "-179.999985 89.913765 -37.744682" );
+SpawnObject( "Mag_MP5_30Rnd", "7531.801758 6.012738 3568.657959", "0.000000 -89.913765 -103.867905" );
+SpawnObject( "Mag_MP5_30Rnd", "7532.305176 6.011705 3567.883301", "0.000000 -89.913765 170.227356" );
+SpawnObject( "Mag_MP5_30Rnd", "7522.848633 6.008713 3565.406982", "-179.999985 89.913765 52.115238" );
+SpawnObject( "Mag_MP5_30Rnd", "7522.904785 6.009215 3565.783447", "-179.999985 89.913765 -28.384031" );
+SpawnObject( "Mag_MP5_30Rnd", "7522.699219 6.007659 3564.849365", "0.000000 -89.913765 -92.936180" );
+SpawnObject( "Mag_MP5_30Rnd", "7522.286133 6.008384 3565.393066", "0.000000 -89.913765 154.417557" );
+SpawnObject( "MP5K", "7522.659668 6.019593 3565.213867", "0.000000 -89.913765 -132.576050" );
+SpawnObject( "MP5_RailHndgrd", "7522.291992 6.026953 3564.839355", "0.000000 -89.913765 -79.851067" );
+SpawnObject( "MP5k_StockBttstck", "7523.486816 6.020086 3565.468262", "-179.999985 89.913765 18.375196" );
+SpawnObject( "UMP45", "7525.989746 6.043401 3574.318115", "-179.999985 89.768448 107.147438" );
+SpawnObject( "UMP45", "7528.368164 5.998312 3555.120850", "-44.998634 -89.886353 56.820332" );
+SpawnObject( "Mag_UMP_25Rnd", "7528.551758 5.999261 3554.983154", "90.000000 89.913765 -26.755266" );
+SpawnObject( "Mag_UMP_25Rnd", "7527.904297 6.000600 3555.472168", "-44.998634 -89.886353 83.759636" );
+SpawnObject( "Mag_UMP_25Rnd", "7528.457520 5.999915 3555.511230", "-44.998634 -89.886353 158.194260" );
+SpawnObject( "Mag_UMP_25Rnd", "7526.519043 6.044964 3574.408203", "-179.999985 89.768448 -30.032053" );
+SpawnObject( "Mag_UMP_25Rnd", "7525.804199 6.047595 3575.065918", "-179.999985 89.768448 143.095795" );
+SpawnObject( "Mag_UMP_25Rnd", "7525.605469 6.043914 3574.145752", "-179.999985 89.768448 164.816422" );
+SpawnObject( "VSS", "7525.939453 6.025507 3566.596924", "-179.999985 89.913765 -121.880554" );
+SpawnObject( "Mag_VSS_10Rnd", "7525.446289 6.022675 3566.420166", "-179.999985 89.913765 139.316376" );
+SpawnObject( "Mag_VSS_10Rnd", "7526.387207 6.022577 3566.488281", "0.000000 -89.913765 81.477119" );
+SpawnObject( "Mag_VSS_10Rnd", "7525.677734 6.023464 3567.011963", "-179.999985 89.913765 -139.316360" );
+SpawnObject( "Mag_VSS_10Rnd", "7526.411133 6.023455 3567.146973", "0.000000 -89.913765 109.987488" );
+SpawnObject( "Mp133Shotgun", "7524.691895 6.012035 3555.858643", "-44.998634 -89.886353 -6.715535" );
+SpawnObject( "Mp133Shotgun", "7518.462402 6.030770 3567.609375", "-179.999985 89.913765 131.647675" );
+SpawnObject( "Ammo_12gaPellets", "7518.619629 6.020294 3568.094971", "-127.478218 -0.046484 -0.060627" );
+SpawnObject( "Ammo_12gaPellets", "7518.353027 6.019018 3567.138184", "-93.463539 -0.004615 -0.076257" );
+SpawnObject( "Ammo_12gaPellets", "7517.983887 6.019347 3567.385254", "129.554718 -0.048650 0.058903" );
+SpawnObject( "Ammo_12gaPellets", "7517.996582 6.035724 3567.463623", "-13.843207 0.074177 -0.018279" );
+SpawnObject( "Ammo_12gaPellets", "7524.057617 6.001926 3555.877930", "129.027435 -0.107451 0.011244" );
+SpawnObject( "Ammo_12gaPellets", "7524.867676 6.000478 3555.601318", "116.821228 -0.102644 0.033708" );
+SpawnObject( "Ammo_12gaPellets", "7525.499512 5.999674 3555.630615", "66.436363 -0.039482 0.100565" );
+SpawnObject( "Ammo_12gaPellets", "7524.149414 6.002240 3556.204834", "142.189453 -0.107189 -0.013518" );
+SpawnObject( "PlateCarrierVest", "7532.736328 5.996860 3559.142578", "-89.815964 -0.075901 -0.153033" );
+SpawnObject( "PlateCarrierVest", "7524.812500 6.009813 3568.236572", "100.692757 -0.014175 0.075070" );
+SpawnObject( "ACOGOptic", "7520.198242 6.040603 3568.745850", "0.000000 -89.913765 -42.002010" );
+SpawnObject( "ACOGOptic", "7532.848633 6.023129 3557.629150", "26.564503 -89.824165 -82.124161" );
+SpawnObject( "PUScopeOptic", "7534.966309 6.034048 3561.238525", "0.000000 -89.913765 87.146210" );
+SpawnObject( "PUScopeOptic", "7520.032715 6.038893 3564.871582", "0.000000 -89.913765 10.613120" );
+SpawnObject( "KashtanOptic", "7529.260742 6.029585 3559.556396", "0.000000 -89.842979 -173.534332" );
+SpawnObject( "KashtanOptic", "7525.870117 6.051054 3570.904785", "0.000000 -89.768448 137.948547" );
+SpawnObject( "LongrangeOptic", "7521.486816 6.009536 3562.682373", "130.870361 -0.049990 -89.942230" );
+SpawnObject( "PSO1Optic", "7525.730957 6.031787 3557.402588", "-44.998634 -89.886353 72.608147" );
+SpawnObject( "PSO1Optic", "7531.772461 6.069236 3574.080566", "0.000000 -89.768448 95.166466" );
+SpawnObject( "KobraOptic", "7526.746582 6.021733 3556.622559", "-44.998634 -89.886353 -8.934850" );
+SpawnObject( "KobraOptic", "7527.919434 6.048321 3570.770996", "0.000000 -89.768448 46.100048" );
+SpawnObject( "M4_T3NRDSOptic", "7524.499023 6.018984 3569.941650", "-101.706268 -0.015500 -90.074806" );
+SpawnObject( "M4_T3NRDSOptic", "7536.241211 6.010859 3563.847412", "146.669174 -0.063830 -89.958023" );
+SpawnObject( "M68Optic", "7528.395996 6.011299 3558.093750", "0.000000 -89.842979 -76.060661" );
+SpawnObject( "M68Optic", "7525.896484 6.032548 3569.625000", "0.000000 -89.913765 -50.747395" );
+SpawnObject( "GhillieHood_Woodland", "7524.745605 5.994328 3560.931641", "64.997177 0.064578 0.138470" );
+SpawnObject( "GhillieTop_Woodland", "7531.463379 6.168285 3564.733154", "0.000000 -89.913765 65.172890" );
+SpawnObject( "BallisticHelmet_Green", "7533.209961 6.012219 3560.600586", "-21.544859 0.071058 -0.028055" );
+SpawnObject( "BallisticHelmet_Green", "7526.136230 6.034606 3572.457275", "27.818417 0.202694 0.106951" );
+SpawnObject( "BallisticHelmet_Green", "7521.617676 6.012435 3560.762695", "3.153162 0.076280 0.004202" );
+SpawnObject( "BakedBeansCan_Opened", "7532.978516 6.058045 3565.152832", "66.425369 0.030554 0.070020" );
+SpawnObject( "BakedBeansCan_Opened", "7530.987305 6.038691 3556.074707", "72.116486 0.119620 0.121947" );
+SpawnObject( "BakedBeansCan_Opened", "7520.060059 6.060887 3567.284180", "-24.324488 0.069614 -0.031468" );
+SpawnObject( "BakedBeansCan_Opened", "7525.297363 6.063735 3569.419922", "72.522942 0.022944 0.072869" );
+SpawnObject( "Canteen", "7528.157227 6.157744 3573.405762", "-74.511665 0.061201 -0.220857" );
+SpawnObject( "Canteen", "7522.907715 6.135291 3563.381348", "79.763161 0.013577 0.075180" );
+SpawnObject( "Canteen", "7532.331055 6.131009 3560.171631", "-125.885162 -0.044781 -0.061896" );
+SpawnObject( "Canteen", "7525.343262 6.125883 3559.167969", "-93.496506 0.071591 -0.080913" );
+SpawnObject( "M67Grenade", "7528.306641 6.021470 3557.568115", "30.268328 0.131959 0.077013" );
+SpawnObject( "M67Grenade", "7537.240723 6.032827 3561.156006", "-124.248131 -0.042994 -0.063150" );
+SpawnObject( "M67Grenade", "7530.979492 6.046791 3570.541260", "112.657059 -0.088284 0.211493" );
+SpawnObject( "M67Grenade", "7520.896484 6.044338 3569.789551", "-29.894726 0.066231 -0.038076" );
+SpawnObject( "M18SmokeGrenade_Red", "7524.495117 6.058803 3573.200439", "0.000000 -89.768448 18.138979" );
+SpawnObject( "M18SmokeGrenade_Red", "7529.137207 6.045467 3569.600342", "0.000000 -89.913765 32.916039" );
+SpawnObject( "M18SmokeGrenade_Red", "7535.608398 6.032416 3559.812256", "0.000000 -89.913765 110.295113" );
+SpawnObject( "M18SmokeGrenade_Red", "7527.827148 6.025227 3558.459961", "-179.999985 89.842979 19.353010" );
+SpawnObject( "FlashGrenade", "7523.321777 6.019163 3557.718262", "135.001358 89.886353 37.714409" );
+SpawnObject( "FlashGrenade", "7532.292480 6.040637 3570.964844", "0.000000 -89.768448 -103.109833" );
+SpawnObject( "FlashGrenade", "7526.792480 6.040502 3570.931152", "0.000000 -89.768448 127.489235" );
+SpawnObject( "Sword", "7529.339844 6.041177 3575.323975", "150.607727 -0.199680 90.112465" );
+SpawnObject( "Sword", "7532.067383 5.995480 3556.065918", "-112.511650 -0.129070 89.888100" );
+SpawnObject( "Sword", "7519.643555 6.011039 3563.369629", "-145.449661 -0.062922 89.956665" );
+SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb", "7437.104980 14.330023 3424.810791", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_t_FagusSylvatica_2s", "7445.726563 13.825905 3432.614502", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_t_FagusSylvatica_2s", "7477.624023 13.648427 3467.681152", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7471.602539 6.845202 3489.185547", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7465.698730 6.845202 3488.420410", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7450.376953 6.845202 3471.145996", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7441.887695 7.144314 3434.331299", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7449.432617 6.933586 3426.715576", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7431.058594 7.150532 3459.296875", "0.000000 0.000000 0.000000" );
+SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7424.791504 6.857305 3503.063477", "0.000000 0.000000 0.000000" );
 //Solnichny Cache
 //Your custom spawned objects
 SpawnObject( "Land_Tower_TC3_Red", "13328.362305 8.801027 6629.551758", "70.000000 0.000000 0.000000" );
@@ -1476,976 +2620,228 @@ SpawnObject( "bldr_Garbage_GroundSq_5m", "11598.232422 1.312503 3258.301514", "0
 SpawnObject( "bldr_Garbage_Pile3", "11617.147461 2.469019 3345.114258", "0.000000 0.000000 0.000000" );
 SpawnObject( "bldr_Garbage_Pile3", "11620.121094 2.478380 3346.902100", "0.000000 0.000000 0.000000" );
 SpawnObject( "Land_Mil_Tent_Big1_5", "11712.071289 2.433609 3194.774658", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Mil_Tent_Big1_5", "11704.607422 2.135967 3226.235352", "0.000000 0.000000 0.000000" );
-//skalisty island bridge
-SpawnObject( "bldr_rds_asf1_6", "13482.000000 6.100000 4421.170410", "11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13483.799805 6.229602 4429.815430", "12.000008 1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13487.500000 6.239185 4446.819824", "12.000008 -1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13489.599609 6.259400 4457.291016", "11.000003 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_10_75", "13492.099609 5.185216 4471.500000", "-177.999954 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13493.318359 6.204984 4487.002930", "3.000010 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13494.597656 6.147692 4503.990234", "5.000026 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13495.856445 6.130835 4521.189941", "3.000015 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13496.676758 6.100000 4538.283203", "2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13496.995117 6.067600 4555.334473", "0.000000 -1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13497.451172 5.937530 4572.722656", "2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13497.937500 5.775084 4584.513184", "2.000000 -3.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13498.253906 5.750000 4594.060059", "2.000001 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13499.083008 5.710000 4611.319824", "3.000015 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13499.560547 5.676732 4628.170410", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13499.683594 5.663601 4639.890137", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13499.671875 5.713941 4645.972656", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13499.869141 5.756577 4651.971191", "2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.007813 5.817066 4656.158203", "2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.175781 5.943881 4659.160156", "3.000025 2.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.500000 6.065508 4665.283691", "4.000026 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.756836 6.133140 4669.890137", "1.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.900391 6.236160 4673.321777", "2.000000 1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.098633 6.325767 4679.370117", "2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13501.158203 6.324585 4691.089844", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.208008 6.378210 4688.495605", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13501.200195 5.960627 4713.459961", "0.000000 -1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.200195 6.214430 4702.359863", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13501.256836 5.723936 4730.890137", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.365234 5.718482 4742.657227", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.199219 5.751089 4745.560059", "-3.000015 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.104492 5.785633 4748.709961", "-2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13501.000000 5.814562 4752.211426", "-2.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13500.400391 5.867560 4760.609863", "-4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13500.000000 5.895343 4767.183105", "-4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13499.973633 5.908430 4767.655273", "-4.999999 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13499.443359 5.953619 4773.176758", "-4.999999 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13498.299805 5.868541 4788.509766", "-4.999999 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13498.991211 5.937238 4778.649902", "-4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13497.523438 5.785000 4799.548828", "-4.000010 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13509.099609 1.380660 4363.770020", "3.999998 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13519.000000 1.370000 4363.049805", "4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13488.599609 5.418742 4365.222656", "94.000031 -4.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13494.808594 5.090596 4364.828613", "94.000023 -2.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13500.950195 4.890000 4364.370117", "94.000023 -2.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13512.799805 4.782530 4363.510254", "94.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13530.099609 4.763142 4362.383789", "93.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13547.376953 4.781230 4361.411133", "93.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13528.930664 1.370000 4362.350098", "4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13538.871094 1.355850 4361.653320", "4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13548.733398 1.366620 4361.051270", "3.000026 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13564.543945 -19.194002 4359.772949", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13558.606445 1.356640 4360.526367", "93.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13565.845703 -19.213100 4328.243652", "-163.999985 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13582.400391 -19.187811 4385.791992", "-163.999985 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13604.231445 -19.221512 4317.250000", "-163.999985 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13620.440430 -19.177750 4374.859863", "-163.999985 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13585.879883 -3.292470 4354.054688", "-74.000000 0.000000 0.000000" );
-SpawnObject( "Land_Garage_Row_Big", "13586.961914 8.158740 4405.053223", "17.000004 0.000000 0.000000" );
-SpawnObject( "Land_Guardhouse", "13493.268555 6.013270 4358.030273", "4.000026 0.000000 0.000000" );
-SpawnObject( "Land_Mil_ATC_Small", "13930.551758 5.901590 4137.652344", "47.000004 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13609.916992 -3.283000 4347.200195", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13633.938477 -3.286920 4340.314941", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13657.946289 -3.280000 4333.335938", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13681.501953 -3.270000 4326.129883", "-72.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13705.215820 -3.270000 4318.462891", "-72.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13728.297852 -3.269743 4310.288086", "-69.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13751.223633 -3.269120 4300.982910", "-67.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13773.526367 -3.271083 4291.049805", "-65.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13795.700195 -3.255000 4280.222656", "-63.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13817.550781 -3.276221 4268.609375", "-61.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13838.776367 -3.279040 4256.181152", "-57.999996 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13859.280273 -3.275985 4242.557617", "-55.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13878.874023 -3.270000 4228.094727", "-52.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13897.700195 -3.270000 4212.549316", "-49.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13915.400391 -3.265000 4196.431641", "-45.999996 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13931.646484 -3.260160 4179.635742", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13947.672852 -19.207602 4163.880371", "138.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13933.085938 -19.199396 4137.356445", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13960.833008 -19.244600 4149.255859", "138.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete3_end", "13963.459961 -18.661201 4182.151855", "138.000015 0.000000 0.000000" );
-SpawnObject( "Land_Workshop2", "13956.248047 6.013470 4175.053223", "138.000000 0.000000 0.000000" );
-SpawnObject( "Land_Lighthouse", "13981.864258 12.719300 4155.145508", "88.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13953.841797 1.292790 4126.680176", "-169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13983.300781 1.366330 4150.930176", "161.000046 0.000000 1.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13986.099609 1.398000 4153.433105", "115.999962 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13986.299805 1.382005 4157.189453", "71.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13983.766602 1.393750 4160.035645", "26.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13979.934570 1.400000 4160.299805", "-19.000006 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13976.500000 1.320600 4151.029785", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13978.400391 1.320000 4141.216797", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13980.299805 1.320000 4131.455566", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13970.500000 1.320000 4129.541992", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13968.617188 1.320560 4139.367188", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13960.717773 1.320000 4127.626465", "-11.000003 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13973.997070 -3.335000 4112.457520", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13958.806641 1.330170 4137.439941", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Angle", "13950.799805 1.306708 4128.722168", "-122.000038 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13966.689453 1.324653 4149.176758", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13978.799805 -3.317980 4088.070801", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13983.562500 -3.320000 4063.610596", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13988.376953 -3.319150 4039.085693", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13993.099609 -3.320000 4014.589600", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "13997.799805 -3.320000 3990.088379", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14002.509766 -3.312220 3965.570068", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14007.270508 -3.315120 3941.118896", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14012.035156 -3.310000 3916.570068", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14016.798828 -3.315000 3892.076416", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14021.549805 -3.320000 3867.711670", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14026.334961 -3.320000 3843.280029", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14031.099609 -3.320000 3818.801025", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14035.900391 -3.324900 3794.312744", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14040.666992 -3.330000 3769.839600", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14045.400391 -3.347778 3745.477295", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14050.182617 -3.354806 3720.959229", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14054.873047 -3.350000 3696.600098", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14059.614258 -3.340370 3672.060059", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14064.351563 -3.333660 3647.555908", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14069.129883 -3.350770 3623.024658", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14073.900391 -3.350000 3598.564209", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14078.700195 -3.363450 3574.035645", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14083.414063 -3.350000 3549.614258", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14088.134766 -3.345000 3525.136230", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14092.799805 -3.339210 3500.923584", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14097.539063 -3.343620 3476.395020", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14102.280273 -3.320900 3451.885498", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14107.074219 -3.320000 3427.522949", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14111.828125 -3.330000 3402.995605", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14116.599609 -3.330000 3378.545654", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14121.299805 -3.306420 3354.092041", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14126.000000 -3.310000 3329.787109", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14130.700195 -3.311580 3305.397949", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14135.421875 -3.310000 3280.845703", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14140.137695 -3.303905 3256.392334", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14144.899414 -3.300000 3232.094238", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14149.571289 -3.290000 3207.560059", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14154.400391 -3.313450 3183.035156", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14138.103516 -12.486097 3165.179932", "97.000015 38.999992 -36.999996" );
-SpawnObject( "bldr_bridge_metal_25", "14143.400391 -11.167935 3123.875732", "-81.000008 -12.999986 -28.999998" );
-SpawnObject( "bldr_bridge_metal_25", "14168.700195 -3.300000 3109.600098", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14173.449219 -3.300790 3085.348145", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14178.200195 -3.300000 3061.020996", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14183.000000 -3.300000 3036.525635", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_metal_25", "14187.799805 -3.291200 3011.978271", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_wood_50", "14159.847656 2.366090 3153.540039", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_wood_50", "14162.700195 2.371865 3139.136230", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Hotel_Damaged_Rubble", "14142.400391 -1.608505 3180.957520", "-78.000038 -3.999997 -3.999998" );
-SpawnObject( "bldr_Hotel_Damaged_Rubble", "14138.892578 -4.262220 3107.609131", "111.999969 17.000004 4.999999" );
-SpawnObject( "bldr_pier_concrete2", "14195.906250 -19.232100 2990.605957", "-11.000006 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14156.700195 -19.240000 2982.991699", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14118.099609 -15.334997 2975.419922", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14199.314453 -19.211201 2972.963135", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14160.204102 -19.221821 2965.379883", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14163.547852 -19.236027 2948.153564", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14154.165039 -16.653999 2946.271973", "-11.000000 0.000000 6.999998" );
-SpawnObject( "bldr_pier_concrete2", "14121.357422 -15.289000 2958.871338", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14202.703125 -19.227095 2955.759766", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14114.956055 -11.403843 2938.642822", "-11.000000 0.000000 8.000002" );
-SpawnObject( "bldr_Platform1_Block", "14094.799805 12.185600 2929.622070", "-11.000000 0.000000 4.999999" );
-SpawnObject( "bldr_Platform1_Block", "14092.899414 12.175500 2939.400146", "-11.000000 0.000000 4.999999" );
-SpawnObject( "bldr_Platform1_Block", "14085.099609 13.047201 2927.714111", "-11.000000 0.000000 4.999999" );
-SpawnObject( "bldr_Platform1_Block", "14083.259766 13.051100 2937.512451", "-11.000000 0.000000 4.999999" );
-SpawnObject( "bldr_Platform1_Block", "14074.400391 14.180100 2930.803467", "-11.000000 0.000000 8.000002" );
-SpawnObject( "bldr_Platform1_Block", "14065.160156 15.400001 2929.000000", "-11.000000 0.000000 7.000010" );
-SpawnObject( "bldr_Platform1_Block", "14055.994141 16.555603 2927.212402", "-11.000002 0.000000 7.000002" );
-SpawnObject( "bldr_Platform1_Block", "14046.317383 17.664700 2925.314697", "-11.000002 0.000000 6.000009" );
-SpawnObject( "bldr_Platform1_Block", "14037.197266 18.557800 2924.260742", "-3.000020 -1.000000 5.000000" );
-SpawnObject( "bldr_Platform1_Block", "14027.738281 18.718000 2923.682861", "-4.000000 -1.000000 -3.000001" );
-SpawnObject( "bldr_rds_mud_7_100", "14018.611328 22.702299 2921.319092", "58.999989 -7.000002 0.000000" );
-SpawnObject( "ClutterCutter2x2", "14018.321289 22.635359 2921.573975", "0.000000 0.000000 -0.000000" );
-SpawnObject( "ClutterCutter2x2", "14020.567383 22.265388 2923.956543", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "14071.199219 18.099001 2930.159912", "79.000000 -7.000002 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "14054.400391 20.176401 2927.043457", "79.000000 -7.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "14044.845703 21.271999 2925.189941", "79.000000 -6.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "14039.291992 21.887899 2924.310059", "85.000008 -5.000000 -1.000000" );
-SpawnObject( "bldr_rds_asf1_6", "14035.599609 22.130800 2924.070068", "87.000008 -5.000000 -1.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "14023.899414 21.953100 2923.449951", "86.000000 3.000000 -1.000000" );
-SpawnObject( "Land_Guardhouse", "14084.000977 17.665398 2925.760010", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14087.000000 13.063402 2917.905762", "-11.000000 0.000000 4.999999" );
-SpawnObject( "bldr_Platform1_Block", "14097.059570 12.637806 2919.850098", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14095.573242 10.660193 2927.493652", "-11.000009 -28.999990 0.000000" );
-SpawnObject( "Land_Workshop2", "14097.592773 17.250200 2919.520020", "169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14081.799805 10.564100 2943.779785", "-16.000015 -41.999996 7.000001" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallL", "14096.299805 13.181000 2948.600098", "169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14101.850586 14.829599 2946.064697", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14094.799805 12.980408 2949.682373", "171.000031 0.000000 -6.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallR", "14094.042969 13.359600 2948.261719", "169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14089.718750 16.152002 2943.834229", "79.000000 -5.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14082.641602 16.770098 2942.483154", "79.000000 -5.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14082.243164 17.261700 2918.394531", "-11.000007 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14088.221680 16.827801 2913.295410", "78.000000 -5.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14105.895508 14.846100 2926.930908", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14115.756836 13.437700 2928.836182", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14125.576172 12.034118 2930.743164", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14135.248047 10.635800 2932.646240", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14145.067383 9.316340 2934.603760", "79.000000 -7.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14154.900391 8.040000 2936.514160", "79.000000 -7.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14164.701172 6.814730 2938.449951", "79.000000 -7.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14172.893555 5.774230 2940.069580", "79.000000 -7.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14111.483398 13.464900 2947.896240", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14121.226563 12.064500 2949.796875", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14131.006836 10.652197 2951.689941", "79.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14140.865234 9.351200 2953.629883", "79.000000 -7.000001 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14150.700195 8.118430 2955.527832", "79.000000 -7.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14160.559570 6.868429 2957.419922", "79.000000 -7.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14169.400391 5.768425 2959.153809", "79.000000 -7.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete1", "14227.603516 -19.030594 2986.579834", "169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete1_cornerout", "14232.158203 -19.216000 2961.504395", "169.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14201.099609 1.364395 3006.831299", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14177.500000 1.352980 3002.163818", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14168.505859 5.158850 2995.230957", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14158.651367 5.129140 2993.314941", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14148.726563 5.116290 2991.345947", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14140.299805 5.101870 2989.475586", "76.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14221.963867 5.234893 3005.537842", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14228.369141 5.218531 3006.782959", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14182.700195 5.166056 2941.979980", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14192.651367 5.179239 2943.870850", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14202.545898 5.164480 2945.810059", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14222.257813 5.171020 2949.664551", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14232.120117 5.158700 2951.601807", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14205.956055 5.241570 3007.370117", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14200.253906 5.249370 3011.520020", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14172.799805 5.133266 3001.020020", "-11.000003 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14176.662109 5.116920 3006.739990", "79.000000 0.000000 0.000000" );
-SpawnObject( "Land_Mil_ATC_Small", "14205.895508 5.876140 2973.776855", "-11.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "14201.363281 5.927372 3007.857422", "-11.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "14177.312500 5.915958 3003.030029", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14143.200195 6.383560 2976.275879", "-101.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14143.549805 6.390000 2974.403809", "-101.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14143.923828 6.430000 2972.497803", "-101.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14144.300781 6.430000 2970.551758", "-101.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallL", "14141.816406 6.892790 2977.199951", "-101.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallR", "14143.299805 6.834790 2969.155518", "-101.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop2", "14139.500000 5.996562 2982.798584", "-11.000006 0.000000 0.000000" );
-SpawnObject( "Land_Workshop2", "14143.799805 6.001586 2961.575195", "-11.000000 0.000000 0.000000" );
-SpawnObject( "Land_Lighthouse", "14240.564453 12.345500 2941.556641", "163.000137 0.000000 0.000000" );
-SpawnObject( "Land_CementWorks_SiloBig1A", "14111.349609 -3.141790 2972.489502", "-11.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_20", "14094.474609 7.177700 2969.872070", "79.000000 0.000000 0.000000" );
-SpawnObject( "Land_CementWorks_ExpeditionA", "14164.232422 7.690410 2987.739990", "-101.000008 0.000000 0.000000" );
-SpawnObject( "Land_CementWorks_MillC", "14217.900391 4.724750 3014.027100", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14208.900391 2.313196 3003.751953", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14211.351563 2.294444 3004.250000", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14215.400391 4.006145 2999.655029", "-12.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14217.122070 2.839510 3005.310059", "79.000000 0.000000 0.000000" );
-SpawnObject( "Land_Garage_Office", "14212.827148 8.247670 2919.760254", "168.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14220.099609 -19.260201 2913.381836", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallL", "14210.500977 3.000070 2931.500000", "77.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallR", "14220.777344 3.006370 2933.689453", "-101.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14216.107422 2.613760 2947.760010", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14209.399414 2.604590 2946.420166", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_cementworks_silobig1bridge", "14213.837891 3.455680 2941.590576", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14210.981445 2.435695 2930.959961", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14208.233398 2.450420 2930.409912", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14220.549805 2.437560 2932.927246", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14224.235352 2.437352 2933.711670", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14207.799805 5.189180 2924.129639", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14209.799805 5.198920 2914.590332", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14211.900391 5.263380 2904.647949", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14213.549805 5.285430 2896.860107", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14219.299805 5.276510 2893.085938", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14229.061523 5.278879 2895.168457", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14232.666992 5.254060 2901.321289", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14230.599609 5.292260 2911.092041", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14228.495117 5.297461 2920.989990", "-12.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "14226.608398 5.256818 2929.842773", "-12.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop5", "14223.500000 6.047130 2901.675537", "-101.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop2", "14226.655273 6.006000 3000.250000", "78.000008 0.000000 0.000000" );
-SpawnObject( "Land_Pier_Crane_A", "14231.375977 10.502300 2975.958252", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_pier_crane_rails", "14228.935547 4.814580 2984.560059", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_pier_crane_rails", "14232.043945 4.814580 2967.000000", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete1_r", "14242.099609 -19.205507 2944.624512", "96.000023 0.000000 0.000000" );
-SpawnObject( "bldr_pier_crane_rails_end", "14232.799805 5.053350 2962.197754", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_pier_crane_rails_end", "14228.000000 5.007530 2989.399658", "169.999969 0.000000 0.000000" );
-SpawnObject( "Land_Pier_Crane_B", "14236.200195 23.536400 2975.857910", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop1", "14112.710938 10.024900 2955.947754", "77.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop4", "14194.991211 6.376320 2949.303711", "79.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop3", "14221.848633 2.109030 3015.735596", "169.000031 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14249.599609 4.501561 2940.416748", "66.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14246.349609 4.482040 2947.669922", "66.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "14244.364258 4.489000 2952.134033", "66.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14247.585938 4.497361 2935.459961", "-24.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14234.750000 4.492840 2933.422852", "6.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14232.500000 4.508850 2947.593262", "96.000015 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "14231.729492 4.498618 2940.317871", "96.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "14231.247070 4.510353 2935.677734", "96.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_1_endr", "14240.352539 5.153510 2932.807617", "96.000023 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_1_endl", "14242.571289 5.158000 2933.169189", "64.000008 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "14146.290039 -0.414585 3131.346191", "121.999931 31.999987 0.000000" );
-SpawnObject( "Land_Wreck_Lada_Red", "14151.599609 0.938721 3128.145264", "0.000000 -24.999996 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "14148.605469 1.527610 3160.630371", "35.999996 23.999996 0.000000" );
-SpawnObject( "Land_Wreck_V3S", "14137.562500 -0.657240 3144.763184", "105.000000 19.000000 0.000000" );
-SpawnObject( "bldr_container_1b", "14119.814453 -0.163199 3138.049316", "0.000000 30.999987 0.000000" );
-SpawnObject( "bldr_container_1d", "14140.006836 0.210282 3115.625977", "61.000000 0.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14132.337891 1.568866 3159.416016", "22.000021 31.999987 0.000000" );
-SpawnObject( "bldr_container_1c", "14075.681641 0.292400 3177.845947", "-57.999992 34.999992 0.000000" );
-SpawnObject( "bldr_container_1a", "14043.308594 0.203165 3166.359619", "0.000000 -8.000001 0.000000" );
-SpawnObject( "bldr_container_1b", "14018.394531 0.391999 3211.109863", "-33.000004 9.000000 0.000000" );
-SpawnObject( "bldr_container_1a", "14164.302734 0.574811 3157.939941", "0.000000 -20.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14177.903320 -0.003253 3135.304199", "65.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_S1023_Beige", "14155.588867 1.955134 3123.257324", "90.000000 33.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13985.000000 5.093249 4132.480957", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13983.392578 5.148071 4140.686523", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13981.159180 5.112190 4126.690918", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13962.142578 5.199200 4123.020020", "79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13944.299805 5.274030 4120.820313", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13942.715820 5.281785 4119.372559", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13935.599609 5.282255 4120.003418", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13928.867188 5.285270 4127.520508", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13922.109375 5.301561 4135.049805", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13915.966797 5.301130 4141.893066", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13916.562500 5.290618 4149.032715", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13924.012695 5.301911 4155.746094", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13931.499023 5.270360 4162.443848", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13948.299805 5.249600 4177.515137", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13953.105469 5.229130 4181.808105", "48.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13968.400391 5.295865 4170.413086", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13971.450195 5.278800 4166.963867", "-42.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13984.083008 4.501850 4146.299805", "-16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13988.500000 4.542530 4149.029785", "-45.999996 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13990.955078 4.542530 4153.740234", "-79.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13990.400391 4.526540 4159.090820", "69.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13987.099609 4.545440 4163.300293", "37.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13981.892578 4.601690 4165.091309", "4.000009 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13976.500000 4.634090 4163.795410", "-28.000010 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13954.700195 4.537320 4122.031250", "1.000009 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13950.508789 4.529210 4123.187988", "26.000010 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "13587.612305 -19.163000 4404.015137", "-163.999985 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13556.599609 4.665190 4370.060059", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13558.974609 4.664496 4378.339844", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13561.359375 4.644800 4386.492188", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13563.738281 4.648952 4394.676758", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13566.089844 4.668230 4402.933105", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13568.474609 4.690490 4411.223145", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13569.763672 4.700000 4415.588379", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13575.200195 4.662092 4418.158691", "16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13583.541016 4.624720 4415.747070", "16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13591.645508 4.626080 4413.409668", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13591.649414 3.358161 4413.390137", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13599.662109 4.601920 4411.084473", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13599.631836 2.679200 4411.044434", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13605.252930 4.584199 4409.508301", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13605.202148 3.056360 4409.478516", "16.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "13608.126953 4.767140 4404.020020", "105.999985 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_8", "13605.928711 4.777530 4396.409668", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cncsmall_4", "13604.634766 4.800000 4391.881836", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13551.400391 4.708586 4351.534668", "105.999985 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13549.061523 4.688896 4343.391113", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13546.717773 4.706032 4335.213379", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13544.491211 4.706340 4327.413574", "105.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13547.552734 4.712870 4322.530762", "14.999999 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13555.730469 4.695886 4320.324707", "15.000003 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13563.647461 4.672265 4318.271484", "15.000003 0.000000 0.000000" );
-SpawnObject( "bldr_wall_cnc_5", "13571.696289 4.643590 4316.161133", "15.000003 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13567.037109 2.342011 4316.868652", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13575.146484 1.720074 4314.726563", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13573.463867 1.847055 4315.392578", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13571.857422 1.972162 4315.741211", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13570.244141 2.092611 4315.860840", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13568.824219 2.198636 4316.439453", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13565.481445 2.487275 4317.490234", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13563.522461 2.670051 4318.009766", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13561.469727 2.845042 4318.221680", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_corylusAvellana_2s", "13567.794922 4.091509 4314.360352", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_corylusAvellana_2s", "13555.578125 5.033534 4312.139648", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_corylusAvellana_2s", "13573.489258 3.666313 4311.956055", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_corylusAvellana_2s", "13596.410156 3.934529 4414.854492", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_corylusAvellana_2s", "13582.683594 4.770104 4420.288086", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13587.673828 2.697361 4415.778320", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13593.164063 2.292532 4414.842285", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "13598.946289 1.808489 4413.400391", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_b_crataegusLaevigata_1s", "13553.324219 5.018605 4367.555176", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop3", "13617.351563 6.120410 4315.060059", "-163.999985 0.000000 0.000000" );
-SpawnObject( "Land_Workshop5", "13631.943359 6.173277 4365.939941", "-74.000053 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "13627.299805 2.497669 4358.391113", "16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_bulldozer", "13573.599609 6.237230 4376.049805", "-63.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_digger", "13604.965820 7.992080 4377.827637", "113.999969 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "13566.291992 6.091123 4344.377441", "59.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_trailer_cistern", "13600.900391 4.769640 4392.231445", "132.999939 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_hmmwv", "13553.003906 5.713080 4364.598633", "-104.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "13483.909180 6.387033 4358.509766", "62.999996 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_V3S", "13578.997070 6.383610 4352.100098", "-62.000011 -2.000000 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "13497.203125 6.250050 4367.217285", "91.000015 -1.000000 -6.000000" );
-SpawnObject( "bldr_Garbage_Container_Glass", "13546.900391 5.627610 4330.516113", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Paper", "13549.668945 5.583300 4324.880371", "31.000006 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "13546.673828 5.002040 4325.775879", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13548.307617 4.960712 4328.063477", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Plastic", "13551.534180 5.640780 4324.359375", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13567.673828 4.806000 4347.848145", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "13584.756836 1.610049 4373.709473", "-53.999996 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "13581.300781 1.943756 4374.955078", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "13579.937500 2.809400 4374.608887", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile2", "13582.500977 2.128005 4373.777832", "0.000000 0.000000 6.000000" );
-SpawnObject( "bldr_Garbage_Pile1", "13580.570313 2.517572 4372.339844", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "13579.415039 2.207124 4373.062988", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile6", "13580.000000 3.121110 4374.630859", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13577.700195 5.194016 4374.891113", "-54.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Plastic", "13583.155273 2.057430 4368.286621", "0.000000 0.000000 -47.000000" );
-SpawnObject( "bldr_Garbage_Container_Glass", "13579.953125 2.456635 4370.197754", "-72.000000 0.000000 -77.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "13576.157227 5.182816 4372.252441", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Workshop2", "13560.805664 6.034740 4325.149902", "-75.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_DirtPile_Large", "13554.157227 5.620530 4341.812012", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_Metal3", "13584.100586 4.760755 4395.187012", "38.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_Wood3", "13574.091797 2.591791 4342.299805", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_Rubble_Wood2", "13572.846680 3.129721 4341.505371", "0.000000 0.000000 26.000000" );
-SpawnObject( "bldr_Rubble_Wood3", "13553.200195 5.369965 4341.331055", "25.000013 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_DirtPile_Medium1", "13554.062500 5.066900 4338.286621", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_DirtPile_Large", "13552.052734 5.504889 4340.485352", "64.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_DirtPile_Medium2", "13552.921875 5.057554 4344.955566", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "13932.445313 5.635060 4145.109863", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "13976.591797 6.046480 4139.610840", "-179.999985 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_trailer_flat", "13945.348633 5.999770 4127.562500", "-179.999985 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "13945.161133 6.003030 4134.740234", "-179.999985 0.000000 0.000000" );
-SpawnObject( "bldr_container_1b", "13945.299805 6.868489 4126.731934", "0.000000 -1.000000 0.000000" );
-SpawnObject( "Land_Wreck_Lada_Red", "13966.900391 5.370460 4126.148438", "11.000002 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_V3S", "13961.140625 6.345350 4168.160156", "55.999985 -1.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Blue", "13938.799805 5.441840 4154.874512", "139.999985 1.000000 0.000000" );
-SpawnObject( "bldr_wreck_bmp1", "14205.245117 5.911713 2992.795898", "130.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_digger", "14183.308594 7.975740 2968.305176", "45.999996 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "14240.104492 5.680380 2953.752441", "-37.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "14155.413086 6.072910 2964.264648", "115.000000 0.000000 0.000000" );
-SpawnObject( "Land_Container_1Bo", "14207.099609 5.982150 2953.979004", "-52.999996 0.000000 0.000000" );
-SpawnObject( "bldr_container_2e", "14220.500000 7.390950 2954.048828", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_container_1d", "14218.310547 10.990798 2953.469971", "-35.000004 -8.999995 -12.000010" );
-SpawnObject( "bldr_container_1a", "14215.599609 6.064590 2953.614014", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14214.944336 8.590802 2953.310059", "-14.000011 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "14089.500000 17.035500 2921.639893", "-11.000002 0.000000 3.000003" );
-SpawnObject( "bldr_rock_bright_wallh3", "14155.007813 4.240720 2933.668945", "-7.000010 52.000008 0.000000" );
-SpawnObject( "bldr_rock_bright_spike3", "14142.668945 2.331888 2929.033936", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rock_monolith1", "14172.422852 -1.629630 2931.247559", "-84.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rock_monolith3", "14134.651367 3.561693 2990.634521", "63.000000 0.000000 0.000000" );
-SpawnObject( "bldr_ship_medium_front", "14261.918945 9.959490 2944.266113", "-14.000003 0.000000 0.000000" );
-SpawnObject( "bldr_ship_medium_back", "14249.125977 7.322631 3012.215332", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_container_1a", "14272.492188 -0.186716 2988.067627", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_container_1b", "14258.112305 -0.554860 2994.854004", "-45.000000 -29.999989 0.000000" );
-SpawnObject( "bldr_container_1c", "14246.351563 0.233399 2993.509277", "78.000000 14.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14233.992188 0.160794 3018.093018", "-9.000001 0.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14269.290039 -0.077940 3000.728516", "56.999985 -65.000015 0.000000" );
-SpawnObject( "bldr_container_1b", "14248.099609 14.256700 2975.550049", "0.000000 -31.999987 0.000000" );
-SpawnObject( "bldr_container_1b", "14213.649414 0.601996 3069.999756", "0.000000 -17.000000 0.000000" );
-SpawnObject( "bldr_container_1c", "14051.879883 0.754061 3070.496338", "-43.000000 12.000000 0.000000" );
-SpawnObject( "bldr_ship_big_lifeboat", "14127.680664 0.311725 3130.326660", "125.000000 0.000000 0.000000" );
-SpawnObject( "bldr_ship_big_lifeboat", "14057.487305 -0.319268 3205.090332", "0.000000 9.000000 14.000000" );
-SpawnObject( "bldr_ship_big_lifeboat", "14004.311523 0.495311 3055.545166", "94.000000 0.000000 -9.000002" );
-SpawnObject( "bldr_ship_big_lifeboat", "14008.500000 2.388390 3139.989746", "-68.999992 19.000000 -163.999954" );
-SpawnObject( "bldr_plnt_p_heracleum", "14042.892578 21.598846 2917.818115", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14042.927734 21.513292 2918.906006", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14043.382813 22.259024 2919.540527", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14043.271484 21.552485 2918.015869", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14042.991211 21.516640 2918.792236", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14079.562500 17.019094 2925.702148", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "14093.613281 12.650456 2952.147705", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_ship_big_lifeboat", "14080.145508 1.119930 3150.145752", "-51.000000 0.000000 -179.999985" );
-SpawnObject( "bldr_ship_big_lifeboat", "14139.252930 0.446716 3153.685547", "-141.000122 0.000000 162.000015" );
-SpawnObject( "bldr_ship_big_lifeboat", "14274.962891 0.092313 3008.610107", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_ship_big_lifeboat", "14200.762695 0.813058 3017.549072", "0.000000 -18.000000 171.000031" );
-SpawnObject( "bldr_ship_big_lifeboat", "14092.914063 0.095165 2993.573730", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container", "13489.632813 5.990009 4355.260254", "-41.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13487.508789 5.324709 4356.173340", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile2", "13481.572266 5.791236 4358.332031", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile1", "13491.238281 5.736030 4368.369141", "-89.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13573.257813 5.002250 4413.611328", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "13685.672852 5.867290 4328.400391", "112.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_S1023_Beige", "13780.691406 5.777820 4283.660645", "124.000008 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Trailer_Closed", "13827.400391 5.723550 4259.153320", "130.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Blue", "13822.780273 5.410490 4261.679688", "124.000008 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_bmp1", "13871.006836 5.908590 4236.742676", "105.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "13900.377930 6.070800 4206.636719", "-37.999989 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_digger", "13977.416016 7.863460 4111.465820", "-18.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_V3S", "13992.010742 6.283570 4031.867432", "176.000000 -1.000000 0.000000" );
-SpawnObject( "Land_Wreck_Lada_Red", "13989.200195 5.441264 4001.419922", "144.999939 -4.000000 0.000000" );
-SpawnObject( "Land_Wreck_S1023_Blue", "14002.201172 5.878900 4001.660156", "-43.000000 0.000000 29.000008" );
-SpawnObject( "Land_Wreck_Ikarus", "14015.620117 5.922290 3885.327637", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_ural", "14042.356445 5.960800 3773.603027", "170.000015 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_t72_chassis", "14082.000000 5.529890 3545.942139", "169.999969 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_t72_turret", "14081.170898 6.821450 3548.340088", "8.000011 -7.000000 11.000002" );
-SpawnObject( "bldr_wreck_bulldozer", "14107.369141 6.174850 3436.500244", "167.999969 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_hmmwv", "14151.041992 5.689733 3178.498047", "-30.000004 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "14180.108398 5.887290 3065.020508", "170.999969 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Ikarus", "14001.967773 25.796700 2914.302246", "-102.000000 5.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Grey", "14029.321289 22.786316 2913.029297", "98.999992 -2.000000 0.000000" );
-SpawnObject( "Land_Wreck_V3S", "14229.224609 6.281370 2982.508301", "0.000000 -2.000000 0.000000" );
-SpawnObject( "Land_Tower_TC3_Grey", "13633.799805 4.550480 4397.912109", "16.000002 0.000000 0.000000" );
-SpawnObject( "Land_Boathouse", "13659.105469 -1.342796 4365.386719", "-74.000107 0.000000 0.000000" );
-SpawnObject( "Land_BusStop_City", "13465.279297 6.489999 4324.571777", "112.000000 0.000000 0.000000" );
-SpawnObject( "Land_BusStop_City", "13468.894531 6.880389 4398.503906", "-78.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "13565.107422 5.884270 4391.317383", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_flag_chernarus_pole", "13575.350586 8.709600 4348.916016", "-165.999954 0.000000 -30.000006" );
-SpawnObject( "bldr_cementworks_conveyorfurnace", "13599.962891 -6.612719 4311.149902", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_coalplant_conveyor", "13595.099609 1.807870 4292.368652", "103.999977 0.000000 0.000000" );
-SpawnObject( "bldr_misc_concretepipe", "13527.809570 3.362050 4357.431152", "4.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_concretepipe", "13528.406250 3.249420 4367.520020", "4.999999 0.000000 0.000000" );
-SpawnObject( "bldr_misc_coil", "13572.638672 5.879030 4394.490234", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_concretepanels", "13593.588867 5.522150 4388.799805", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_concretepipe", "13553.601563 5.970620 4332.609375", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_small_ground1", "13594.200195 5.422630 4312.857910", "-72.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_t_naked_2s", "13477.704102 14.917847 4346.268066", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_BusStop_City_Sign", "13461.698242 6.391745 4319.472168", "26.000000 0.000000 0.000000" );
-SpawnObject( "bldr_BusStop_City_Sign", "13471.863281 6.833667 4404.843262", "14.999999 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "13550.999023 4.901721 4354.943359", "0.000000 0.000000 -0.000000" );
-SpawnObject( "Land_Tisy_RadarPlatform_Top", "13634.849609 -2.522540 4400.680176", "16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "13638.824219 4.920606 4411.589844", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "13609.536133 1.400080 4407.915039", "15.000002 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13482.400391 5.635312 4365.661621", "94.000031 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6konec", "13476.201172 5.627340 4366.160156", "94.000031 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13458.298828 5.494658 4329.224609", "22.000011 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_6", "13454.643555 5.503923 4320.112793", "22.000013 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_7_100", "13463.633789 5.500000 4343.010742", "-165.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13467.697266 5.532048 4357.919922", "13.000005 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13470.357422 5.684960 4369.709961", "12.000008 1.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13474.099609 5.865122 4386.541016", "12.000010 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13477.900391 5.930000 4403.120117", "13.000012 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13479.700195 6.004693 4411.629883", "12.000008 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13481.900391 6.040000 4419.291016", "16.000011 0.000000 0.000000" );
-SpawnObject( "bldr_rds_asf1_0_2000", "13482.478516 6.070000 4422.979980", "13.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_brdm", "13458.421875 6.015876 4350.995117", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_decal_small2", "13459.123047 5.473003 4351.513672", "-8.000002 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_bmp2", "13487.572266 6.840776 4409.352539", "59.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_wreck_decal_small2", "13487.208008 6.014059 4409.766602", "52.999996 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile4", "13461.488281 5.552290 4365.545410", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile5", "13462.620117 5.573971 4368.571289", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "13644.750000 0.213240 4373.029785", "16.000002 0.000000 16.000002" );
-SpawnObject( "bldr_Platform1_Block", "13642.022461 0.209920 4363.490234", "16.000002 0.000000 16.000004" );
-SpawnObject( "bldr_Platform1_Wall", "13647.057617 3.773180 4377.399902", "105.999992 -16.000002 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallR", "13644.799805 2.762380 4378.080078", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30_WallR", "13639.267578 2.954635 4359.270020", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Wall", "13641.587891 3.963070 4358.589844", "-73.000000 16.000002 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "13650.041016 -0.195523 4357.540039", "-73.000000 0.000000 0.000000" );
-SpawnObject( "Land_Boat_Small1", "13657.332031 1.029330 4363.706055", "0.000000 19.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13984.836914 4.948810 4164.629883", "109.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13989.166016 4.961810 4161.458984", "141.000031 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13991.200195 4.920180 4156.621582", "-6.000001 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13990.350586 4.971850 4151.259766", "27.000010 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13986.639648 4.945383 4147.261719", "59.999992 0.000000 0.000000" );
-SpawnObject( "bldr_wall_railing_2", "13979.200195 5.032460 4164.991699", "75.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "13639.200195 5.887250 4381.873535", "105.000000 0.000000 0.000000" );
-SpawnObject( "Land_CementWorks_ExpeditionB", "14158.258789 3.793630 3044.760010", "-12.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Stairs_30", "14176.799805 2.914378 3048.139893", "-102.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_vilvar1_pole", "14172.549805 5.406331 3048.120117", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wall_vilvar1_pole", "14172.829102 5.393250 3046.339844", "-16.000002 0.000000 0.000000" );
-SpawnObject( "bldr_pier_concrete2", "14135.799805 -18.766800 3039.229980", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14144.030273 3.805975 3043.810059", "-11.999997 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14145.099609 3.823540 3038.856934", "-12.000000 0.000000 0.000000" );
-SpawnObject( "Land_Tank_Big", "14137.504883 9.247840 3029.510010", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Tank_Big", "14133.142578 9.319860 3049.167480", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "14128.493164 6.340790 3038.012939", "-102.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG", "14143.688477 5.964300 3041.109863", "-101.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_small_stairs", "14136.018555 5.948200 3039.777100", "-13.000005 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_big_18m_ladder", "14060.679688 2.421959 3583.159912", "78.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Block", "14047.001953 1.320880 3580.719482", "-11.000002 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14051.339844 3.390840 3578.790039", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Platform1_Staris_Block", "14050.400391 3.290840 3583.860107", "-11.000000 0.000000 0.000000" );
-SpawnObject( "Land_Shed_M1", "14043.823242 5.838020 3580.050049", "-101.999985 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG", "14069.400391 5.422800 3584.979980", "-100.000015 0.000000 0.000000" );
-SpawnObject( "Land_Water_Station", "14122.805664 10.236300 2983.048828", "169.000031 0.000000 0.000000" );
-SpawnObject( "bldr_misc_drainage", "14126.599609 8.518700 2985.560303", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_gcontainer_big", "14129.899414 9.436145 2953.879883", "-14.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_pallets1", "14134.560547 9.052185 2955.149902", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_small_ground1", "14122.251953 9.301239 2986.699951", "-12.000008 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_small_ground1", "14148.843750 1.668443 3026.064941", "74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_pipe_small_20m", "14159.172852 -4.978260 3028.409912", "-102.000000 30.999987 0.000000" );
-SpawnObject( "bldr_mil_reinforcedtank2", "14026.200195 16.297316 2945.752197", "-84.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13054.500000 -2.066752 3820.392334", "-56.999989 1.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13074.751953 -3.535180 3807.271729", "-57.000004 6.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13096.000000 -5.924249 3793.483643", "-57.000004 3.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13115.796875 -6.063180 3778.310059", "-48.000004 -1.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13135.837891 -6.196372 3762.357422", "-57.000004 0.000000 4.999999" );
-SpawnObject( "bldr_bridge_stone_25", "13157.650391 -7.223206 3748.690186", "-52.000000 4.000000 -7.999998" );
-SpawnObject( "bldr_bridge_stone_25", "13179.310547 -7.481160 3733.249023", "-57.000004 -10.000000 -16.000013" );
-SpawnObject( "bldr_bridge_stone_25", "13197.950195 -7.143040 3718.169922", "-57.000000 2.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "13220.720703 -6.307574 3706.033691", "-46.000011 -3.000000 -17.999996" );
-SpawnObject( "bldr_bridge_stone_25", "13237.736328 -9.007017 3693.389893", "-57.000004 18.000000 -30.999987" );
-SpawnObject( "bldr_bridge_stone_25", "13260.302734 -8.440590 3673.187500", "-72.000023 -5.000001 4.999999" );
-SpawnObject( "bldr_bridge_stone_25", "13299.125000 -7.641047 3643.075928", "-42.000000 -6.000000 -14.000005" );
-SpawnObject( "Land_Wreck_Ikarus", "13093.138672 3.413230 3791.656250", "-45.999996 1.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Blue", "13112.359375 2.006940 3786.432617", "135.000015 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "13039.482422 6.888094 3822.428467", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_p_urtica", "13047.467773 6.352567 3832.906250", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "13047.414063 6.694263 3832.217773", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "13040.761719 6.775093 3824.206055", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_plnt_p_heracleum", "13051.633789 6.778372 3818.702881", "0.000000 0.000000 -0.000000" );
-SpawnObject( "bldr_wreck_ural", "13227.900391 0.544402 3691.641113", "-6.000017 30.000006 -13.000002" );
-SpawnObject( "bldr_wreck_ural", "13054.123047 7.295111 3817.689941", "-46.999985 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_S1023_Blue", "13018.340820 7.043532 3831.613770", "0.000000 0.000000 -0.000000" );
-SpawnObject( "Land_Wreck_V3S", "13069.104492 6.918830 3844.568359", "-105.999992 2.000000 -4.000000" );
-SpawnObject( "Land_Lamp_City1_amp", "13485.191406 9.793507 4360.559570", "94.000031 0.000000 0.000000" );
-SpawnObject( "Land_Lamp_City1_amp", "13544.810547 7.988060 4365.292969", "-80.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "13579.033203 8.599243 4376.040527", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "13567.778320 8.437180 4337.374023", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13619.234375 8.999248 4339.011719", "106.999985 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13719.854492 9.162510 4319.438965", "-70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13803.003906 9.277250 4270.419922", "117.999954 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13892.889648 9.062250 4224.195801", "-50.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13944.984375 8.277080 4172.873535", "-39.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13934.595703 8.072080 4167.069336", "138.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "13952.892578 8.907700 4129.275391", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "13965.774414 8.988460 4166.961426", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13975.880859 9.697250 4124.511719", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13967.099609 9.691450 4125.358887", "168.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13985.249023 8.983370 4027.000244", "171.000031 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14015.407227 9.063597 3928.835205", "-9.000001 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14023.139648 8.962250 3831.241699", "171.000031 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14053.499023 9.177440 3732.915039", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14061.170898 8.998590 3635.610596", "171.000031 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14091.432617 8.837250 3537.315186", "-10.000004 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14099.000000 8.861350 3439.974609", "170.000015 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14129.435547 9.072250 3341.803467", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14137.008789 9.028340 3244.499756", "173.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14181.527344 9.082250 3072.964111", "-12.000008 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14184.626953 9.041050 3000.429443", "170.000031 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14195.648438 8.921890 2999.862061", "-11.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14135.900391 12.592500 2986.951172", "-52.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "14173.416016 9.442150 2959.838867", "15.000003 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City3", "14205.989258 9.029720 2964.303711", "33.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14131.205078 15.487800 2932.949951", "78.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14096.202148 20.367500 2944.064453", "-100.000015 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14083.041016 21.134001 2914.709961", "131.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14145.454102 8.984040 3043.530029", "-98.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14224.866211 5.438610 3022.949951", "-61.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14231.500000 8.048610 2935.543945", "156.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14232.138672 9.504860 2895.691650", "34.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14213.206055 7.954950 2933.601563", "166.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "14218.949219 8.825923 3003.587646", "-98.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13641.899414 8.902166 4377.600098", "-74.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13604.156250 8.645120 4371.616211", "107.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13596.276367 8.696155 4327.895996", "-73.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13619.631836 8.577012 4304.618652", "104.999992 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13573.799805 9.119490 4402.357910", "-109.999954 0.000000 0.000000" );
-SpawnObject( "bldr_Lamp_City1", "13598.514648 9.000920 4393.595215", "-51.000008 0.000000 0.000000" );
-//killhaus
-SpawnObject( "Land_Tisy_Barracks", "7504.378418 10.277354 3552.409180", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_3m", "7497.770020 14.398100 3555.780029", "160.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_corner", "7491.359863 14.398100 3543.120117", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_3m", "7494.859863 14.398100 3542.949951", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_antenna", "7490.089844 17.583799 3546.860107", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_roadblock_pillbox", "7496.689941 15.080300 3549.810059", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_roadblock_bags_long", "7506.990234 16.577999 3550.909912", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_mil_fortified_nest_small", "7516.140137 15.004600 3556.929932", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_razorwire", "7500.541016 6.735067 3542.596436", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7496.959961 10.613900 3543.030029", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7517.180176 10.613900 3552.570068", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7502.359863 6.463210 3545.010010", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_a", "7493.029785 6.463310 3541.709961", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7512.850098 6.463210 3559.850098", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7515.970215 10.613900 3560.919922", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_cans_b", "7516.189941 10.613900 3556.149902", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_corner", "7519.390137 14.398100 3555.270020", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_roadblock_bags_endl", "7512.850098 14.626600 3551.570068", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_roadblock_bags_endr", "7508.839844 14.195000 3552.219971", "-170.000015 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_corner", "7488.299805 14.398100 3550.879883", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_corner", "7501.129883 14.398100 3555.909912", "160.000000 0.000000 0.000000" );
-SpawnObject( "bldr_bridge_stone_25", "7594.609863 7.132390 3581.699951", "-20.000000 0.000000 90.000000" );
-SpawnObject( "bldr_bridge_stone_25", "7559.640137 7.083420 3569.080078", "160.000000 0.000000 90.000000" );
-SpawnObject( "Land_Castle_Gate", "7582.189941 9.389470 3561.229980", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Castle_Gate", "7571.209961 9.429650 3589.850098", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Castle_Stairs", "7593.879883 7.009420 3566.639893", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Castle_Stairs", "7556.680176 6.614880 3583.570068", "160.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_StadiumBenches", "7600.089844 14.912200 3585.159912", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_StadiumBenches", "7553.729980 14.297700 3566.830078", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_StadiumBenches", "7553.729980 14.297700 3566.830078", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Statue_General", "7554.979980 6.882220 3567.409912", "-90.000000 40.000000 0.000000" );
-SpawnObject( "bldr_Statue_General", "7599.830078 6.912090 3581.770020", "90.000000 40.000000 0.000000" );
-SpawnObject( "bldr_rds_runway_beton", "7504.439941 5.981750 3552.360107", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_gate_cgry", "7569.450195 7.940370 3594.870117", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_gate_cgry", "7583.939941 7.923600 3555.949951", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_dragonteeth_big", "7579.640137 9.500000 3585.639893", "70.000000 0.000000 90.000000" );
-SpawnObject( "bldr_misc_dragonteeth_big", "7567.439941 9.788540 3581.370117", "70.000000 0.000000 90.000000" );
-SpawnObject( "bldr_misc_dragonteeth_big", "7586.350098 8.787300 3569.689941", "70.000000 0.000000 -90.000000" );
-SpawnObject( "bldr_misc_dragonteeth_big", "7574.720215 8.761310 3565.610107", "70.000000 0.000000 -90.000000" );
-SpawnObject( "Land_Wall_Gate_FenG_Big", "7584.140137 6.894810 3555.560059", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG_Big", "7569.470215 6.993580 3594.879883", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG_Open", "7585.399902 7.557800 3560.149902", "70.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG", "7574.439941 7.617810 3588.790039", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Monument_Soldiers", "7581.160156 21.579500 3560.159912", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_gate_cgry", "7580.240234 7.897170 3566.270020", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_gate_cgry", "7572.979980 7.991450 3584.770020", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG_Big", "7573.240234 6.973800 3584.479980", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_FenG_Big", "7580.069824 6.916710 3566.530029", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_flag_chernarus_wall", "7583.959961 16.000299 3555.250000", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_flag_chernarus_wall", "7569.419922 16.023500 3595.590088", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_StadiumBenches", "7559.700195 14.383500 3558.909912", "-140.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_StadiumBenches", "7595.459961 14.467200 3592.239990", "20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_mil_camonet_roof_nato", "7571.439941 18.557199 3589.639893", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_flag_chernarus_pole", "7557.839844 7.200270 3566.350098", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_flag_chernarus_pole", "7596.609863 7.648250 3582.800049", "179.999985 0.000000 0.000000" );
-SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7554.430176 17.000000 3575.219971", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7600.120117 16.544201 3574.969971", "0.000000 0.000000 0.000000" );
-SpawnObject( "ClutterCutter6x6", "7569.899902 6.019480 3572.610107", "0.000000 0.000000 0.000000" );
-SpawnObject( "ClutterCutter6x6", "7566.259766 6.010520 3571.070068", "0.000000 0.000000 0.000000" );
-SpawnObject( "ClutterCutter6x6", "7582.540039 6.044550 3575.689941", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_City_Stand_FastFood", "7574.520020 7.768190 3599.489990", "160.000000 0.000000 0.000000" );
-SpawnObject( "Land_City_Stand_Grocery", "7578.359863 7.759310 3551.879883", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_Sunshade", "7570.990234 7.285540 3540.350098", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_Sunshade", "7604.049805 7.291800 3552.189941", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_Sunshade", "7550.169922 7.297400 3605.729980", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Misc_Sunshade", "7579.859863 7.041750 3616.870117", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_tent_ltable", "7571.029785 6.473760 3540.530029", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_tent_ltable", "7604.009766 6.479900 3552.100098", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_tent_ltable", "7579.799805 6.228800 3617.070068", "70.000000 0.000000 0.000000" );
-SpawnObject( "bldr_tent_ltable", "7550.149902 6.482990 3606.120117", "70.000000 0.000000 0.000000" );
-SpawnObject( "Land_City_Stand_News2", "7561.930176 7.620600 3595.169922", "160.000000 0.000000 0.000000" );
-SpawnObject( "Land_City_Stand_News2", "7590.740234 7.582780 3556.870117", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_roadblock_bags_endl", "7505.500000 14.626600 3547.199951", "-59.999996 0.000000 0.000000" );
-SpawnObject( "bldr_misc_bagfence_3m", "7511.540039 14.398100 3559.209961", "160.000000 0.000000 0.000000" );
-SpawnObject( "Land_Radio_PanelPAS", "7506.439941 10.614000 3550.889893", "70.000000 0.000000 0.000000" );
-SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7510.490234 9.481050 3537.699951", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Power_Pole_Wood1_Lamp_Amp", "7519.529785 9.477990 3540.800049", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_7_100", "7510.520020 5.998720 3525.149902", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_22_50", "7520.850098 5.997960 3529.070068", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_22_50", "7525.939941 6.000000 3516.709961", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_22_50", "7527.930176 6.000000 3514.290039", "-29.999998 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_22_50", "7518.319824 6.000000 3525.040039", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_22_50", "7521.649902 6.000000 3501.169922", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_25", "7529.939941 6.000000 3486.320068", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_rds_mud_60_10", "7529.410156 6.000000 3502.489990", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_a", "7505.600098 6.463220 3546.110107", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_case_a", "7505.490234 10.614000 3546.149902", "-20.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Uaz", "7522.379883 6.828690 3535.870117", "119.999992 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Police", "7486.700195 6.712640 3544.750000", "-179.999985 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Police", "7515.439941 6.712640 3547.070068", "50.000004 0.000000 0.000000" );
-SpawnObject( "bldr_wreck_brdm", "7513.129883 6.547330 3516.439941", "70.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_Volha_Blue", "7503.229980 6.736940 3501.959961", "140.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wreck_S1023_Beige", "7544.310059 6.999130 3479.169922", "-29.999998 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb_Trail_G", "7466.914551 13.819901 3490.677490", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb_Trail_G", "7447.359863 13.847200 3463.399902", "0.000000 0.000000 0.000000" );
-SpawnObject( "Land_Wall_Gate_Camp", "7515.220215 7.514900 3536.909912", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7507.529785 6.488690 3534.159912", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9_2", "7490.770020 6.490610 3527.969971", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9_2", "7523.279785 6.482430 3539.320068", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7531.680176 6.480000 3542.530029", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7540.080078 6.481390 3545.669922", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7499.189941 6.490000 3531.169922", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7482.279785 6.491320 3525.000000", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7473.299805 6.489250 3536.030029", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7470.120117 6.478940 3544.449951", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7467.029785 6.485010 3552.770020", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7476.350098 6.492810 3527.649902", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7542.649902 6.480630 3551.580078", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7539.709961 6.494770 3559.969971", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7533.379883 6.530450 3576.979980", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9_2", "7536.669922 6.506810 3568.550049", "-110.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7527.589844 6.542160 3579.719971", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7519.109863 6.535830 3576.610107", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7510.569824 6.519490 3573.600098", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7502.129883 6.511290 3570.540039", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7493.750000 6.505810 3567.370117", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7476.770020 6.497600 3561.209961", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9", "7485.169922 6.501820 3564.370117", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_wall_tincom_9_2", "7469.580078 6.494600 3558.500000", "-20.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_Metal1", "7500.299805 6.219210 3530.560059", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_Metal3", "7503.910156 5.938560 3531.239990", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Rubble_Metal2", "8662.559570 87.790298 3008.260010", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Pile3", "7532.540039 6.249190 3542.070068", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Bin", "7506.140137 6.545730 3545.000000", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_misc_gcontainer_big", "7474.310059 6.711770 3552.469971", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container", "7520.879883 6.838630 3560.330078", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Glass", "7504.220215 6.835410 3557.919922", "-37.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Plastic", "7506.370117 6.836690 3558.879883", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_Garbage_Container_Glass", "7509.390137 6.837650 3559.600098", "50.000004 0.000000 0.000000" );
-SpawnObject( "ChristmasTree", "7527.672852 13.727050 3563.755371", "0.000000 0.000000 0.000000" );
-SpawnObject( "AK74", "7530.004883 6.001973 3557.769287", "0.000000 -89.842979 -69.073143" );
-SpawnObject( "AK74", "7530.876953 6.032471 3571.991455", "0.000000 -89.768448 -92.320930" );
-SpawnObject( "AK74_Hndgrd", "7530.446289 6.038370 3571.825684", "-179.999985 89.768448 -16.946938" );
-SpawnObject( "AK74_Hndgrd", "7530.289063 6.009613 3558.060059", "-153.435486 89.824165 -3.335601" );
-SpawnObject( "AK74_WoodBttstck", "7530.063477 6.006473 3557.512451", "-153.435486 89.824165 151.971878" );
-SpawnObject( "AK74_WoodBttstck", "7530.989258 6.035864 3571.687744", "0.000000 -89.768448 -40.474861" );
-SpawnObject( "Mag_AK74_30Rnd", "7531.425781 6.032533 3572.054199", "0.000000 -89.768448 -169.381393" );
-SpawnObject( "Mag_AK74_30Rnd", "7531.296387 6.034158 3572.460449", "0.000000 -89.768448 171.666611" );
-SpawnObject( "Mag_AK74_30Rnd", "7530.412109 6.033998 3572.420410", "0.000000 -89.768448 49.165298" );
-SpawnObject( "Mag_AK74_30Rnd", "7530.779785 6.036202 3572.971680", "0.000000 -89.768448 -46.924042" );
-SpawnObject( "Mag_AK74_30Rnd", "7529.523438 6.001606 3557.734131", "0.000000 -89.842979 123.874619" );
-SpawnObject( "Mag_AK74_30Rnd", "7529.730469 6.002494 3558.066895", "0.000000 -89.842979 -10.162663" );
-SpawnObject( "Mag_AK74_30Rnd", "7530.086426 6.003389 3558.359131", "26.564503 -89.824165 74.765388" );
-SpawnObject( "Mag_AK74_30Rnd", "7530.424316 6.002646 3557.740967", "-153.435486 89.824165 -157.368607" );
-SpawnObject( "Mosin9130", "7526.269043 6.010068 3558.077148", "-44.998634 -89.886353 164.225937" );
-SpawnObject( "Mosin9130", "7534.484375 6.026912 3567.214600", "-179.999985 89.913765 -133.581345" );
-SpawnObject( "Ammo_762x54", "7534.249023 6.013575 3567.116455", "-157.504776 -0.070583 -0.029230" );
-SpawnObject( "Ammo_762x54", "7534.409180 6.012826 3566.554443", "-86.904495 0.004125 -0.076285" );
-SpawnObject( "AmmoBox_762x54_20Rnd", "7534.706055 6.017939 3566.957764", "0.000000 -89.913765 167.843262" );
-SpawnObject( "AmmoBox_762x54_20Rnd", "7533.729004 6.018650 3567.384277", "-179.999985 89.913765 -171.166702" );
-SpawnObject( "AmmoBox_762x54_20Rnd", "7525.852539 6.001917 3558.294678", "-44.998634 -89.886353 97.899475" );
-SpawnObject( "AmmoBox_762x54_20Rnd", "7526.805176 6.000420 3558.017578", "135.001358 89.886353 170.477219" );
-SpawnObject( "Ammo_762x54", "7526.297852 5.996966 3558.458008", "33.003994 0.022457 0.105678" );
-SpawnObject( "Ammo_762x54", "7526.475098 5.995947 3557.871338", "153.615585 -0.102386 -0.034485" );
-SpawnObject( "SKS", "7519.399414 6.055523 3571.979004", "0.000000 -89.768448 -37.991882" );
-SpawnObject( "SKS", "7536.127930 6.032386 3558.600342", "0.000000 -89.913765 -66.776932" );
-SpawnObject( "AmmoBox_762x39_20Rnd", "7535.287109 6.020932 3558.376465", "-179.999985 89.913765 134.372391" );
-SpawnObject( "AmmoBox_762x39_20Rnd", "7536.154297 6.020275 3557.884277", "-179.999985 89.913765 77.791061" );
-SpawnObject( "Ammo_762x39", "7536.391113 5.997269 3558.214355", "69.040207 0.027328 0.071341" );
-SpawnObject( "Ammo_762x39", "7535.855469 5.997940 3558.717529", "149.945969 -0.066125 0.038260" );
-SpawnObject( "Mag_CLIP762x39_10Rnd", "7535.852539 6.037488 3558.935547", "-179.999985 89.913765 -143.667084" );
-SpawnObject( "Mag_CLIP762x39_10Rnd", "7535.983887 6.036216 3557.981689", "-179.999985 89.913765 147.995850" );
-SpawnObject( "Mag_CLIP762x39_10Rnd", "7519.288086 6.058125 3571.470947", "0.000000 -89.768448 161.767624" );
-SpawnObject( "Mag_CLIP762x39_10Rnd", "7519.395020 6.061535 3572.323486", "0.000000 -89.768448 -52.724995" );
-SpawnObject( "AmmoBox_762x39_20Rnd", "7519.538086 6.043396 3571.740967", "-179.999985 89.768448 -14.452973" );
-SpawnObject( "AmmoBox_762x39_20Rnd", "7518.448730 6.045350 3572.044922", "0.000000 -89.768448 -98.836014" );
-SpawnObject( "Ammo_762x39", "7518.958008 6.018977 3571.498291", "-8.745452 0.226515 -0.034846" );
-SpawnObject( "Ammo_762x39", "7519.167969 6.022248 3572.316162", "168.260651 -0.224386 0.046629" );
-SpawnObject( "SVD", "7524.415527 6.023151 3562.430908", "0.000000 -89.842979 121.633324" );
-SpawnObject( "Mag_SVD_10Rnd", "7524.394043 6.014326 3562.581055", "0.000000 -89.913765 80.037834" );
-SpawnObject( "Mag_SVD_10Rnd", "7525.181152 6.013577 3562.240479", "-179.999985 89.842979 -59.498287" );
-SpawnObject( "Mag_SVD_10Rnd", "7525.020996 6.014233 3562.486572", "-179.999985 89.842979 42.578812" );
-SpawnObject( "Mag_SVD_10Rnd", "7524.255371 6.015080 3563.108398", "-179.999985 89.913765 -98.632759" );
-SpawnObject( "SVD", "7530.396484 6.023845 3562.882324", "0.000000 -89.913765 -140.761124" );
-SpawnObject( "Mag_SVD_10Rnd", "7529.937988 6.013897 3562.360352", "-179.999985 89.842979 168.431030" );
-SpawnObject( "Mag_SVD_10Rnd", "7530.327148 6.013329 3561.999023", "26.564503 -89.824165 153.737534" );
-SpawnObject( "Mag_SVD_10Rnd", "7530.610352 6.014917 3562.985840", "-179.999985 89.913765 134.537186" );
-SpawnObject( "Mag_SVD_10Rnd", "7531.541016 6.014373 3562.578125", "-179.999985 89.913765 -0.917368" );
-SpawnObject( "FAL", "7527.715820 6.030812 3568.497314", "-179.999985 89.913765 146.589554" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.923340 6.022364 3568.609863", "0.000000 -89.913765 75.621231" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.036133 6.021791 3568.180664", "0.000000 -89.913765 2.768648" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.047852 6.023283 3569.260254", "-179.999985 89.913765 117.441925" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.499512 6.037483 3568.739746", "-179.999985 89.913765 -93.952438" );
-SpawnObject( "Fal_FoldingBttstck", "7526.640625 6.025759 3568.701904", "-179.999985 89.913765 -114.112976" );
-SpawnObject( "Fal_FoldingBttstck", "7527.946777 6.014287 3561.198242", "0.000000 -89.842979 134.817352" );
-SpawnObject( "FAL", "7527.829590 6.017988 3560.880615", "0.000000 -89.842979 24.082773" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.388672 6.009174 3560.589355", "-179.999985 89.842979 -130.439178" );
-SpawnObject( "Mag_FAL_20Rnd", "7527.750977 6.009030 3560.535400", "-179.999985 89.842979 167.244476" );
-SpawnObject( "Mag_FAL_20Rnd", "7528.260742 6.010334 3561.024414", "-179.999985 89.842979 97.116615" );
-SpawnObject( "Mag_FAL_20Rnd", "7528.116211 6.008925 3560.515381", "0.000000 -89.842979 -41.529583" );
-SpawnObject( "M4A1", "7523.561035 6.023969 3560.582764", "135.001358 89.886353 145.087067" );
-SpawnObject( "M4A1", "7522.232910 6.035400 3568.141602", "-179.999985 89.913765 113.519699" );
-SpawnObject( "M4_PlasticHndgrd", "7521.898926 6.039742 3567.972656", "0.000000 -89.913765 67.853630" );
-SpawnObject( "M4_CQBBttstck", "7522.016113 6.033090 3567.790771", "0.000000 -89.913765 100.440102" );
-SpawnObject( "M4_CarryHandleOptic", "7522.401367 6.026547 3568.146973", "-179.999985 89.913765 47.401958" );
-SpawnObject( "M4_CarryHandleOptic", "7523.316406 6.015460 3560.651855", "135.001358 89.886353 -71.811615" );
-SpawnObject( "M4_OEBttstck", "7523.658203 6.017861 3560.311768", "-44.998634 -89.886353 -9.088664" );
-SpawnObject( "M4_PlasticHndgrd", "7523.253418 6.028298 3560.144043", "135.001358 89.886353 39.340446" );
-SpawnObject( "Mag_STANAGCoupled_30Rnd", "7522.894531 6.052176 3560.133545", "135.001358 89.886353 -70.394356" );
-SpawnObject( "Mag_STANAGCoupled_30Rnd", "7522.617188 6.024848 3567.877686", "0.000000 -89.913765 -45.638599" );
-SpawnObject( "Mag_STANAG_30Rnd", "7521.793457 6.021687 3568.467529", "-179.999985 89.913765 -81.614433" );
-SpawnObject( "Mag_STANAG_30Rnd", "7524.335449 6.007330 3560.242676", "-44.998634 -89.886353 -8.835963" );
-SpawnObject( "Mag_STANAG_30Rnd", "7523.073242 6.011086 3561.090576", "135.001358 89.886353 118.037903" );
-SpawnObject( "Mag_STANAG_30Rnd", "7521.412598 6.020860 3567.847168", "-179.999985 89.913765 -48.489635" );
-SpawnObject( "AKM", "7524.328613 6.030210 3571.426514", "0.000000 -89.768448 86.530960" );
-SpawnObject( "Mag_AKM_30Rnd", "7524.054688 6.029838 3571.567383", "0.000000 -89.768448 -142.793640" );
-SpawnObject( "Mag_AKM_30Rnd", "7524.928223 6.030547 3571.051758", "-179.999985 89.768448 74.626907" );
-SpawnObject( "Mag_AKM_30Rnd", "7524.879395 6.033324 3571.745850", "-179.999985 89.768448 -84.481918" );
-SpawnObject( "Mag_AKM_30Rnd", "7524.849609 6.030848 3571.819824", "0.000000 -89.768448 -99.341408" );
-SpawnObject( "AKM", "7533.426270 6.034004 3562.847656", "-179.999985 89.913765 -116.914574" );
-SpawnObject( "Mag_AKM_30Rnd", "7533.795410 6.016242 3562.426514", "-179.999985 89.913765 -13.760800" );
-SpawnObject( "Mag_AKM_30Rnd", "7534.012207 6.016890 3562.912842", "-179.999985 89.913765 -45.808880" );
-SpawnObject( "Mag_AKM_30Rnd", "7533.635254 6.014786 3563.413818", "0.000000 -89.913765 145.562302" );
-SpawnObject( "Mag_AKM_30Rnd", "7532.763672 6.013243 3562.257080", "0.000000 -89.913765 151.923584" );
-SpawnObject( "Mag_AKM_Drum75Rnd", "7522.729004 6.060625 3569.790771", "-106.221786 -0.021342 -90.073357" );
-SpawnObject( "Mag_AKM_Drum75Rnd", "7535.476563 6.054455 3565.162842", "69.169281 0.027167 -89.928604" );
-SpawnObject( "AK_WoodHndgrd", "7533.292480 6.021334 3563.525879", "0.000000 -89.913765 -70.677200" );
-SpawnObject( "AK_WoodHndgrd", "7524.270508 6.039755 3572.171875", "-179.999985 89.768448 -83.690933" );
-SpawnObject( "AK_WoodBttstck", "7524.388672 6.033908 3571.054932", "-179.999985 89.768448 -93.095505" );
-SpawnObject( "AK_WoodBttstck", "7533.417969 6.018382 3561.952881", "0.000000 -89.913765 -62.525101" );
-SpawnObject( "CZ61", "7531.109375 6.011214 3560.157959", "26.564503 -89.824165 -40.968117" );
-SpawnObject( "CZ61", "7528.056152 6.057736 3571.760986", "0.000000 -89.842979 -123.369232" );
-SpawnObject( "Mag_CZ61_20Rnd", "7530.741699 6.005478 3560.104248", "-153.435486 89.824165 -60.213535" );
-SpawnObject( "Mag_CZ61_20Rnd", "7531.316895 6.004820 3559.772705", "26.564503 -89.824165 -91.232101" );
-SpawnObject( "Mag_CZ61_20Rnd", "7531.710938 6.007656 3560.436523", "-153.435486 89.824165 52.685383" );
-SpawnObject( "Mag_CZ61_20Rnd", "7530.868652 6.006273 3560.541748", "26.564503 -89.824165 -170.105347" );
-SpawnObject( "Mag_CZ61_20Rnd", "7527.652344 6.027909 3571.757813", "-179.999985 89.768448 167.277435" );
-SpawnObject( "Mag_CZ61_20Rnd", "7528.429199 6.028775 3572.109619", "0.000000 -89.768448 113.316429" );
-SpawnObject( "Mag_CZ61_20Rnd", "7528.228516 6.026725 3571.596924", "0.000000 -89.768448 112.580322" );
-SpawnObject( "Mag_CZ61_20Rnd", "7527.754883 6.030448 3572.392822", "-179.999985 89.768448 124.616234" );
-SpawnObject( "MP5K", "7531.973633 6.024039 3568.432617", "-179.999985 89.913765 -81.998947" );
-SpawnObject( "MP5_PlasticHndgrd", "7531.879883 6.023304 3567.997070", "0.000000 -89.913765 -85.476234" );
-SpawnObject( "bldr_MP5k_StockBttstck", "7532.431152 6.007994 3568.494873", "0.000000 0.000000 0.000000" );
-SpawnObject( "Mag_MP5_30Rnd", "7531.652832 6.012391 3568.397949", "0.000000 -89.913765 -32.289803" );
-SpawnObject( "Mag_MP5_30Rnd", "7532.160156 6.013438 3568.950195", "-179.999985 89.913765 -37.744682" );
-SpawnObject( "Mag_MP5_30Rnd", "7531.801758 6.012738 3568.657959", "0.000000 -89.913765 -103.867905" );
-SpawnObject( "Mag_MP5_30Rnd", "7532.305176 6.011705 3567.883301", "0.000000 -89.913765 170.227356" );
-SpawnObject( "Mag_MP5_30Rnd", "7522.848633 6.008713 3565.406982", "-179.999985 89.913765 52.115238" );
-SpawnObject( "Mag_MP5_30Rnd", "7522.904785 6.009215 3565.783447", "-179.999985 89.913765 -28.384031" );
-SpawnObject( "Mag_MP5_30Rnd", "7522.699219 6.007659 3564.849365", "0.000000 -89.913765 -92.936180" );
-SpawnObject( "Mag_MP5_30Rnd", "7522.286133 6.008384 3565.393066", "0.000000 -89.913765 154.417557" );
-SpawnObject( "MP5K", "7522.659668 6.019593 3565.213867", "0.000000 -89.913765 -132.576050" );
-SpawnObject( "MP5_RailHndgrd", "7522.291992 6.026953 3564.839355", "0.000000 -89.913765 -79.851067" );
-SpawnObject( "MP5k_StockBttstck", "7523.486816 6.020086 3565.468262", "-179.999985 89.913765 18.375196" );
-SpawnObject( "UMP45", "7525.989746 6.043401 3574.318115", "-179.999985 89.768448 107.147438" );
-SpawnObject( "UMP45", "7528.368164 5.998312 3555.120850", "-44.998634 -89.886353 56.820332" );
-SpawnObject( "Mag_UMP_25Rnd", "7528.551758 5.999261 3554.983154", "90.000000 89.913765 -26.755266" );
-SpawnObject( "Mag_UMP_25Rnd", "7527.904297 6.000600 3555.472168", "-44.998634 -89.886353 83.759636" );
-SpawnObject( "Mag_UMP_25Rnd", "7528.457520 5.999915 3555.511230", "-44.998634 -89.886353 158.194260" );
-SpawnObject( "Mag_UMP_25Rnd", "7526.519043 6.044964 3574.408203", "-179.999985 89.768448 -30.032053" );
-SpawnObject( "Mag_UMP_25Rnd", "7525.804199 6.047595 3575.065918", "-179.999985 89.768448 143.095795" );
-SpawnObject( "Mag_UMP_25Rnd", "7525.605469 6.043914 3574.145752", "-179.999985 89.768448 164.816422" );
-SpawnObject( "VSS", "7525.939453 6.025507 3566.596924", "-179.999985 89.913765 -121.880554" );
-SpawnObject( "Mag_VSS_10Rnd", "7525.446289 6.022675 3566.420166", "-179.999985 89.913765 139.316376" );
-SpawnObject( "Mag_VSS_10Rnd", "7526.387207 6.022577 3566.488281", "0.000000 -89.913765 81.477119" );
-SpawnObject( "Mag_VSS_10Rnd", "7525.677734 6.023464 3567.011963", "-179.999985 89.913765 -139.316360" );
-SpawnObject( "Mag_VSS_10Rnd", "7526.411133 6.023455 3567.146973", "0.000000 -89.913765 109.987488" );
-SpawnObject( "Mp133Shotgun", "7524.691895 6.012035 3555.858643", "-44.998634 -89.886353 -6.715535" );
-SpawnObject( "Mp133Shotgun", "7518.462402 6.030770 3567.609375", "-179.999985 89.913765 131.647675" );
-SpawnObject( "Ammo_12gaPellets", "7518.619629 6.020294 3568.094971", "-127.478218 -0.046484 -0.060627" );
-SpawnObject( "Ammo_12gaPellets", "7518.353027 6.019018 3567.138184", "-93.463539 -0.004615 -0.076257" );
-SpawnObject( "Ammo_12gaPellets", "7517.983887 6.019347 3567.385254", "129.554718 -0.048650 0.058903" );
-SpawnObject( "Ammo_12gaPellets", "7517.996582 6.035724 3567.463623", "-13.843207 0.074177 -0.018279" );
-SpawnObject( "Ammo_12gaPellets", "7524.057617 6.001926 3555.877930", "129.027435 -0.107451 0.011244" );
-SpawnObject( "Ammo_12gaPellets", "7524.867676 6.000478 3555.601318", "116.821228 -0.102644 0.033708" );
-SpawnObject( "Ammo_12gaPellets", "7525.499512 5.999674 3555.630615", "66.436363 -0.039482 0.100565" );
-SpawnObject( "Ammo_12gaPellets", "7524.149414 6.002240 3556.204834", "142.189453 -0.107189 -0.013518" );
-SpawnObject( "PlateCarrierVest", "7532.736328 5.996860 3559.142578", "-89.815964 -0.075901 -0.153033" );
-SpawnObject( "PlateCarrierVest", "7524.812500 6.009813 3568.236572", "100.692757 -0.014175 0.075070" );
-SpawnObject( "ACOGOptic", "7520.198242 6.040603 3568.745850", "0.000000 -89.913765 -42.002010" );
-SpawnObject( "ACOGOptic", "7532.848633 6.023129 3557.629150", "26.564503 -89.824165 -82.124161" );
-SpawnObject( "PUScopeOptic", "7534.966309 6.034048 3561.238525", "0.000000 -89.913765 87.146210" );
-SpawnObject( "PUScopeOptic", "7520.032715 6.038893 3564.871582", "0.000000 -89.913765 10.613120" );
-SpawnObject( "KashtanOptic", "7529.260742 6.029585 3559.556396", "0.000000 -89.842979 -173.534332" );
-SpawnObject( "KashtanOptic", "7525.870117 6.051054 3570.904785", "0.000000 -89.768448 137.948547" );
-SpawnObject( "LongrangeOptic", "7521.486816 6.009536 3562.682373", "130.870361 -0.049990 -89.942230" );
-SpawnObject( "PSO1Optic", "7525.730957 6.031787 3557.402588", "-44.998634 -89.886353 72.608147" );
-SpawnObject( "PSO1Optic", "7531.772461 6.069236 3574.080566", "0.000000 -89.768448 95.166466" );
-SpawnObject( "KobraOptic", "7526.746582 6.021733 3556.622559", "-44.998634 -89.886353 -8.934850" );
-SpawnObject( "KobraOptic", "7527.919434 6.048321 3570.770996", "0.000000 -89.768448 46.100048" );
-SpawnObject( "M4_T3NRDSOptic", "7524.499023 6.018984 3569.941650", "-101.706268 -0.015500 -90.074806" );
-SpawnObject( "M4_T3NRDSOptic", "7536.241211 6.010859 3563.847412", "146.669174 -0.063830 -89.958023" );
-SpawnObject( "M68Optic", "7528.395996 6.011299 3558.093750", "0.000000 -89.842979 -76.060661" );
-SpawnObject( "M68Optic", "7525.896484 6.032548 3569.625000", "0.000000 -89.913765 -50.747395" );
-SpawnObject( "GhillieHood_Woodland", "7524.745605 5.994328 3560.931641", "64.997177 0.064578 0.138470" );
-SpawnObject( "GhillieTop_Woodland", "7531.463379 6.168285 3564.733154", "0.000000 -89.913765 65.172890" );
-SpawnObject( "BallisticHelmet_Green", "7533.209961 6.012219 3560.600586", "-21.544859 0.071058 -0.028055" );
-SpawnObject( "BallisticHelmet_Green", "7526.136230 6.034606 3572.457275", "27.818417 0.202694 0.106951" );
-SpawnObject( "BallisticHelmet_Green", "7521.617676 6.012435 3560.762695", "3.153162 0.076280 0.004202" );
-SpawnObject( "BakedBeansCan_Opened", "7532.978516 6.058045 3565.152832", "66.425369 0.030554 0.070020" );
-SpawnObject( "BakedBeansCan_Opened", "7530.987305 6.038691 3556.074707", "72.116486 0.119620 0.121947" );
-SpawnObject( "BakedBeansCan_Opened", "7520.060059 6.060887 3567.284180", "-24.324488 0.069614 -0.031468" );
-SpawnObject( "BakedBeansCan_Opened", "7525.297363 6.063735 3569.419922", "72.522942 0.022944 0.072869" );
-SpawnObject( "Canteen", "7528.157227 6.157744 3573.405762", "-74.511665 0.061201 -0.220857" );
-SpawnObject( "Canteen", "7522.907715 6.135291 3563.381348", "79.763161 0.013577 0.075180" );
-SpawnObject( "Canteen", "7532.331055 6.131009 3560.171631", "-125.885162 -0.044781 -0.061896" );
-SpawnObject( "Canteen", "7525.343262 6.125883 3559.167969", "-93.496506 0.071591 -0.080913" );
-SpawnObject( "M67Grenade", "7528.306641 6.021470 3557.568115", "30.268328 0.131959 0.077013" );
-SpawnObject( "M67Grenade", "7537.240723 6.032827 3561.156006", "-124.248131 -0.042994 -0.063150" );
-SpawnObject( "M67Grenade", "7530.979492 6.046791 3570.541260", "112.657059 -0.088284 0.211493" );
-SpawnObject( "M67Grenade", "7520.896484 6.044338 3569.789551", "-29.894726 0.066231 -0.038076" );
-SpawnObject( "M18SmokeGrenade_Red", "7524.495117 6.058803 3573.200439", "0.000000 -89.768448 18.138979" );
-SpawnObject( "M18SmokeGrenade_Red", "7529.137207 6.045467 3569.600342", "0.000000 -89.913765 32.916039" );
-SpawnObject( "M18SmokeGrenade_Red", "7535.608398 6.032416 3559.812256", "0.000000 -89.913765 110.295113" );
-SpawnObject( "M18SmokeGrenade_Red", "7527.827148 6.025227 3558.459961", "-179.999985 89.842979 19.353010" );
-SpawnObject( "FlashGrenade", "7523.321777 6.019163 3557.718262", "135.001358 89.886353 37.714409" );
-SpawnObject( "FlashGrenade", "7532.292480 6.040637 3570.964844", "0.000000 -89.768448 -103.109833" );
-SpawnObject( "FlashGrenade", "7526.792480 6.040502 3570.931152", "0.000000 -89.768448 127.489235" );
-SpawnObject( "Sword", "7529.339844 6.041177 3575.323975", "150.607727 -0.199680 90.112465" );
-SpawnObject( "Sword", "7532.067383 5.995480 3556.065918", "-112.511650 -0.129070 89.888100" );
-SpawnObject( "Sword", "7519.643555 6.011039 3563.369629", "-145.449661 -0.062922 89.956665" );
-SpawnObject( "bldr_plnt_t_FagusSylvatica_2sb", "7437.104980 14.330023 3424.810791", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_t_FagusSylvatica_2s", "7445.726563 13.825905 3432.614502", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_t_FagusSylvatica_2s", "7477.624023 13.648427 3467.681152", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7471.602539 6.845202 3489.185547", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7465.698730 6.845202 3488.420410", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7450.376953 6.845202 3471.145996", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7441.887695 7.144314 3434.331299", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7449.432617 6.933586 3426.715576", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7431.058594 7.150532 3459.296875", "0.000000 0.000000 0.000000" );
-SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7424.791504 6.857305 3503.063477", "0.000000 0.000000 0.000000" );
+SpawnObject( "Land_Mil_Tent_Big1_5", "11704.607422 2.135967 3226.235352", "0.000000 0.000000 0.000000" );	
 
-	//INIT WEATHER BEFORE ECONOMY INIT------------------------
+
+
+
+//INIT WEATHER BEFORE ECONOMY INIT------------------------
+
 	Weather weather = g_Game.GetWeather();
-
-	weather.MissionWeather(false);    // false = use weather controller from Weather.c
-
-	weather.GetOvercast().Set( Math.RandomFloatInclusive(0.4, 0.6), 1, 0);
-	weather.GetRain().Set( 0, 0, 1);
-	weather.GetFog().Set( Math.RandomFloatInclusive(0.05, 0.1), 1, 0);
+ 
+    weather.MissionWeather(true);    // false = use weather controller from Weather.c
+ 
+    weather.GetRain().SetLimits( 0.0 , 0.0 );
+    weather.GetOvercast().SetLimits( 0.0 , 0.0 );
+    weather.GetFog().SetLimits( 0.0 , 0.01 );
+ 
+    weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.1 );
+    weather.GetRain().SetForecastChangeLimits( 0.0, 0.0 );
+    weather.GetFog().SetForecastChangeLimits( 0.0, 0.0 );
+ 
+    weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
+    weather.GetRain().SetForecastTimeLimits( 600 , 600 );
+    weather.GetFog().SetForecastTimeLimits( 1800 , 1800 );
+ 
+    weather.GetOvercast().Set( Math.RandomFloatInclusive(0.0, 0.3), 0, 0);
+    weather.GetRain().Set( Math.RandomFloatInclusive(0.0, 0.0), 0, 0);
+    weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0);
+ 
+    weather.SetWindMaximumSpeed(15);
+    weather.SetWindFunctionParams(0.1, 0.3, 50);
 
 	//INIT ECONOMY--------------------------------------
 	Hive ce = CreateHive();
 	if ( ce )
 		ce.InitOffline();
-		
-	//GetCEApi().ExportProxyData("7500 0 7500", 10000);
-        //GetCEApi().ExportClusterData();
+	
+//<START>..................................<START>	
+//-------[ CAR SPAWNER FUNCTION -NZJOCKO- ]-------
+//
+//-SUPPORTED CAR TYPES-	 
+//"OffroadHatchback" "OffroadHatchback_Blue" "OffroadHatchback_White"
+//"CivilianSedan"  "CivilianSedan_Wine"  "CivilianSedan_Black"
+//"Sedan_02"  "Sedan_02_Red"  "Sedan_02_Grey"
+//"Hatchback_02" "Hatchback_02_Black" "Hatchback_02_Blue"
+//	
+//-OPTIONS- [true|flase]	
+//spawnfood, spawndrink, spawngun, spawnmed
+//	
+//-FORMAT-	
+// spawncar("TYPE","POSITION",SPAWNFOOD,SPAWNDRINK,SPAWNGUN,SPAWNMED)	
+//
+// maybe add random postion finder		
+//----RANDOM CAR & LOOT SPAWN-----------
+ref TVectorArray posArray = {
+	
+"13378.400391 13.593865 5354.807617",
+"13377.716797 13.615818 5399.776855",
+"13377.977539 13.403805 5474.424805",
+"13384.493164 13.775370 5592.401367",
+"13400.566406 13.086131 5737.411133",
+"13402.302734 13.042225 5862.562500",
+"13423.070313 13.380334 5918.410156",
+"13437.546875 13.543036 6039.528320",
+"13462.195313 13.841402 6238.553223",
+"13458.839844 13.629889 6304.648438",
+"13458.139648 13.438540 6388.108887",
+"13411.912109 11.854989 6577.077148",
+"13398.323242 12.017178 6624.640137",
+"13305.069336 13.785369 6911.054688",
+"13223.308594 14.028213 7109.537109",
+"13112.709961 13.840961 7323.310547",
+"13070.388672 13.650106 7474.458496",
+"13046.087891 13.295677 7706.354980",
+"13054.078125 13.389065 7879.652344",
+"13029.888672 13.393518 8043.809082",
+"13030.575195 13.024841 8179.512207",
+"12969.327148 13.630613 8376.537109",
+"12878.361328 13.428210 8600.958008",
+"12826.874023 13.640017 8905.519531",
+"12837.111328 13.788157 9118.408203",
+"12892.862305 14.024980 9359.450195",
+"12917.668945 13.726631 9500.704102",
+"12938.987305 13.720031 9731.149414",
+"12933.824219 13.975368 9622.827148",
+"12981.100586 13.725368 9940.872070",
+"13010.642578 13.771626 10092.137695",
+"13045.556641 13.725368 10168.349609",
+"13069.584961 13.705369 10275.333008",
+"13115.291016 13.715368 10372.708008",
+"13136.167969 13.715368 10464.437500",
+"13315.009766 12.930610 10830.304688",
+"13486.001953 18.132900 11155.740234",
+"13597.342773 19.891787 11441.316406",
+"13556.083008 40.944126 11722.144531",
+"13748.042969 31.776249 11902.288086",
+"13942.803711 22.016745 12061.898438",
+"14016.227539 21.076069 12459.113281",
+"13406.806641 13.669063 5167.066895",
+"13457.603516 13.678348 4941.940430",
+"13500.058594 13.175369 4833.057617",
+"13480.140625 13.931520 4465.391113",
+"13388.028320 14.152663 4161.603027",
+"13265.280273 13.147535 4018.677734",
+"13110.897461 12.345148 3885.845947",
+"13004.620117 13.558879 3803.738770",
+"12828.891602 13.721838 3691.691895",
+"12677.934570 17.219028 3612.846436",
+"12474.954102 14.500712 3535.997314",
+"12397.681641 13.881529 3537.766602",
+"12251.086914 13.344837 3517.833252",
+"12097.717773 13.919704 3488.500977",
+"12053.749023 13.812867 3492.400879",
+"11926.049805 13.960073 3463.755615",
+"11794.273438 13.860085 3453.125488",
+"11619.164063 13.259303 3393.057129",
+"11309.750000 13.886429 3290.006104",
+"11456.541016 13.503228 3361.583496",
+"11182.081055 13.798353 3215.838623",
+"11063.112305 13.924171 3065.717529",
+"10934.022461 13.905682 2903.679443",
+"10878.000977 13.725368 2714.633789",
+"10880.433594 13.664233 2755.444580",
+"10828.401367 13.553866 2566.842041",
+"10777.967773 13.724751 2581.930176",
+"10731.032227 14.482494 2473.650146",
+"10684.890625 14.156656 2461.118896",
+"10581.369141 13.725368 2390.803711",
+"10600.503906 13.715368 2308.842041",
+"10467.498047 13.732040 2379.507080",
+"10556.876953 14.102830 2207.568115",
+"10444.402344 13.725368 2112.367188",
+"10415.811523 13.725368 2176.535645",
+"10343.572266 13.532728 2177.857178",
+"10387.782227 13.724998 2357.667480",
+"10470.192383 13.725368 2298.451416",
+"10253.264648 13.663191 2129.212891",
+"10162.532227 13.656370 2118.527100",
+"10102.478516 13.501806 2102.703369",
+"10011.188477 13.725368 2062.002197",
+"9866.813477 13.739872 2038.681519",
+"10039.605469 13.735369 1949.058838",
+"9719.445313 13.844351 2019.525024",
+"9623.361328 14.098691 2035.961548",
+"9509.885742 13.219825 2023.745361",
+"9478.249023 13.436851 2011.161621",
+"9387.729492 14.942156 2065.137695",
+"9221.975586 13.841501 2053.839844",
+"9071.189453 15.140113 2105.837891",
+"8998.046875 15.230686 2171.033936",
+"8782.011719 14.754785 2294.450195",
+"8884.301758 15.718011 2253.903809",
+"8722.939453 14.604044 2400.179199",
+"8670.707031 14.359440 2478.039551",
+"8607.737305 22.631315 2617.831055",
+"8509.970703 19.024900 2780.803711",
+"8434.777344 21.148914 2862.580078",
+"8368.125977 21.633272 2998.538086",
+"8314.220703 18.325037 3043.736816",
+"8211.693359 13.931085 3088.149902",
+"8590.668945 21.535126 2653.411621",
+"8108.298340 14.037168 3145.720215",
+"8024.704590 14.332909 3158.549316",
+"7946.879883 14.633928 3182.901611",
+"7760.607422 11.810726 3166.652344",
+"7794.770508 12.383276 3183.120850",
+"7578.311523 13.981759 3155.165771",
+"7477.080566 14.341011 3172.748291",
+"7365.393066 23.175081 3170.652832",
+"7004.773926 15.745676 3173.125244",
+"6969.028809 15.426296 3122.587646",
+"6909.992188 15.005369 3085.891602",
+"6868.997559 15.025370 3066.114502",
+"6751.591309 15.580328 3029.134277",
+"6575.273438 21.722406 3041.955811",
+"6582.219238 17.068005 2938.783447",
+"6488.060547 16.415369 2879.222900",
+"6413.418457 17.045368 2744.479980",
+"6349.077148 16.911804 2761.434082",
+"6270.419434 15.995369 2673.292236",
+"6255.062988 16.005369 2626.156250",
+"6281.038574 16.540493 2568.661621",
+"6263.507324 16.671968 2495.310547",
+"6221.658203 18.816265 2378.547852",
+"6279.922363 16.978565 2396.435547",
+"6682.815430 17.202610 3026.992188",
+"6538.452148 15.987349 2933.576416"
+
+};
+ref TBoolArray boolArray = {true,false};
+ref TStringArray carArray = {"OffroadHatchback","OffroadHatchback_Blue","OffroadHatchback_White","CivilianSedan","CivilianSedan_Wine","CivilianSedan_Black","Sedan_02_Grey","Sedan_02","Sedan_02_Red","Hatchback_02","Hatchback_02_Blue","Hatchback_02_Black"};
+
+
+//spawning every car with random chance of loot
+	for ( int i = 0; i < posArray.Count(); ++i )
+		{
+			//spawncar(carArray.GetRandomElement(), posArray.Get(i),true,true,true,true);
+			//spawn all pos candom car random chance of loot types
+			spawncar(carArray.GetRandomElement(), posArray.Get(i),boolArray.GetRandomElement(),boolArray.GetRandomElement(),boolArray.GetRandomElement(),boolArray.GetRandomElement());
+		}
+
+//--------------------------------------
+//---SET CAR & LOOT SPAWN---------------
+//spawncar("Hatchback_02_Blue", "12010.000000 145.675003 12511.099609",true,true,true,true);
+//spawncar("OffroadHatchback", "12010.000000 145.675003 12511.099609",false,false,true,false);	
+//spawncar(carArray.GetRandomElement(), "5064.339844 17.157200 2394.250000",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10466.905273 13.731251 2379.298340",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "7527.672852 13.727050 3563.755371",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "13303.094727 14.306023 6755.385254",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10685.333984 14.115663 2460.562988",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10581.024414 13.725368 2391.847900",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10730.566406 14.482880 2473.381104",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10525.765625 13.725368 2252.337158",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10331.084961 13.515369 2159.247559",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10385.747070 13.737221 2352.013428",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10449.214844 13.725368 2111.314697",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10448.708984 13.715824 2419.765869",true,true,true,true);
+//spawncar(carArray.GetRandomElement(), "10600.845703 13.715368 2310.001709",true,true,true,true);
+//--------------------------------------	
+//<END>..................................<END>	
+	
+	
+
+//GetCEApi().ExportProxyData( "7500 0 7500", 10000 );  //Center of map, radius of how far to go out and find buildings
 
 	//DATE RESET AFTER ECONOMY INIT-------------------------
 	int year, month, day, hour, minute;
@@ -2473,27 +2869,16 @@ SpawnObject( "bldr_plnt_b_betulaHumilis_1s", "7424.791504 6.857305 3503.063477",
 }
 
 class CustomMission: MissionServer
-{	
+{
 	void SetRandomHealth(EntityAI itemEnt)
 	{
 		if ( itemEnt )
 		{
-			int rndHlt = Math.RandomInt(100,100);
+			int rndHlt = Math.RandomInt(55,100);
 			itemEnt.SetHealth("","",rndHlt);
 		}
 	}
 
-
-	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
-	{
-		Entity playerEnt;
-		playerEnt = GetGame().CreatePlayer(identity, characterName, pos, 0, "NONE");//Creates random player
-		Class.CastTo(m_player, playerEnt);
-		
-		GetGame().SelectPlayer(identity, m_player);
-		
-		return m_player;
-	}
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
 	    player.RemoveAllItems();
@@ -2520,7 +2905,7 @@ class CustomMission: MissionServer
 	
 
 };
-  
+
 
 Mission CreateCustomMission(string path)
 {
